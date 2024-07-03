@@ -46,6 +46,11 @@
   <form [formGroup]="managerRegister" (ngSubmit)="managerSubmit()">
       <h1>Register As Manager</h1>
       <div class="items">
+        <label for="Text">Company Name</label>
+        <input type="text" name="" [placeholder]="cname.companyname" [disabled]="isDisable" id="">
+        
+    </div>
+      <div class="items">
         <label for="email">Name:</label>
         <input type="text" name="" formControlName="name" id="">
         <div *ngIf="managerRegister.get('name')?.invalid && managerRegister.get('name')?.touched">Email is required</div>
@@ -70,6 +75,11 @@
 <div class="container" *ngIf="name === 'user'">
   <form [formGroup]="userRegister" (ngSubmit)="userSubmit()">
     <h1>Register As User</h1>
+    <div class="items">
+      <label for="Text">Company Name</label>
+      <input type="text" name="" [placeholder]="cname.companyname" [disabled]="isDisable" id="">
+      
+  </div>
     <div class="items">
       <label for="name">Name</label>
       <input type="text" formControlName="name" id="name">

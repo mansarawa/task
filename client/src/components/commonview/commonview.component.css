@@ -13,14 +13,20 @@
 }
 .container div{
  width: 40%;
- margin-left: 15%;
+ margin-left: 5%;
   display: flex;
 }
 .container div label{
   margin-top: 20px;
+  text-align: center;
   border: 1px dashed black;
-  width: 30%;
+  width: 60%;
  
+}
+.container div label span{
+ margin-left: auto;
+  text-align: center;
+  width: 100%;
 }
 .btn{
     background-color: black;
@@ -42,5 +48,5 @@
  
     display: flex;
      max-width: 25%;
-    margin-right: 15%;
+    margin-left: 15%;
   }

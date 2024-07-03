@@ -2,13 +2,13 @@ import { where } from "sequelize";
 import { managerModel, userModel } from "../postgres/postgres.js";
 
  const userController=async(req,res)=>{
-    const {name,email,password,salary,mangerId,managerName}=req.body;
+    const {name,email,password,salary,mangerId,companyname,managerName}=req.body;
     try {
         const existUser=await userModel.findOne({where:{email:email}})
         if(!existUser)
             {                
                 
-                const newUser=await userModel.create({name,email,password,salary,mangerId,managerName})
+                const newUser=await userModel.create({name,companyname,email,password,salary,mangerId,managerName})
                 return res.status(200).json({message:'user created successfully',User:newUser})
             }
             return res.status(400).json({message:'Already created'})

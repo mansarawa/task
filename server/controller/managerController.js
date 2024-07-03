@@ -1,13 +1,13 @@
 import { managerModel } from "../postgres/postgres.js";
 import bcrypt from 'bcrypt'
 const managerController = async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role,companyname } = req.body;
     try {
         const existManager = await managerModel.findOne({ where: { email: email } });
         if (!existManager) {
             const saltRound = 10;
           
-            const newManager = await managerModel.create({ name, email, password: password, role });
+            const newManager = await managerModel.create({ name,companyname, email, password: password, role });
             return res.status(200).json({ message: "Manager Created Successfully", manager: newManager });
         }
         return res.status(200).json({ message: "Manager Already Exists" });

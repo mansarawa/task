@@ -4,6 +4,10 @@
   
         <!-- <div>ID: {{ name.id }}</div> -->
         <div>
+          <label>Company:</label>
+          <label >{{manager.companyname}}</label>
+        </div>
+        <div>
           <label>Name:</label>
           <label >{{manager.name}}</label>
         </div>
@@ -21,11 +25,11 @@
         </div>
         <div>
             <label>Users:</label>
-            <section *ngFor="let user of result"> 
+            <label *ngFor="let user of result"> 
               <div *ngIf="user.managerName === manager.name">
-                <label>{{user.name}}</label>
+                <span>{{user.name}}</span>
               </div>
-             </section>
+             </label>
           </div>
           
           <div class="btndiv">
@@ -35,8 +39,11 @@
   </div>
   
   <div class="container" *ngIf="name === 'user'">
-    <h1>User</h1>
-   
+    <h1>Employee</h1>
+    <div>
+      <label>Company:</label>
+      <label >{{user.companyname}}</label>
+    </div>
       <div>
         <label>Name:</label> 
         <label >{{user.name}}</label>

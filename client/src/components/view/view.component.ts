@@ -28,7 +28,7 @@ export class ViewComponent implements OnInit {
   ) {
     this.adminUpdate = this.fb.group({
       id: [this.item.id],
-      companyname: [this.item.companyname, Validators.required],
+      companyname: [this.item.companyname],
       address: [this.item.address, Validators.required],
       adminname: [this.item.adminname, Validators.required],
       email: [this.item.email, Validators.required],

@@ -5,6 +5,9 @@ export const createUserModel=async(sequelize)=>{
         name:{
             type:DataTypes.STRING,
             allowNull:false
+        }, companyname:{
+            type:DataTypes.STRING,
+            allowNull:false
         },
         email:{
             type:DataTypes.STRING,

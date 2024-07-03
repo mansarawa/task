@@ -3,7 +3,7 @@
   <form [formGroup]="adminUpdate" (ngSubmit)="adminSubmit()">
       <div>
           <label>Company Name:</label>
-          <input formControlName="companyname" type="text" />
+          <input type="text" name="" [placeholder]="item.companyname" [disabled]="isDisable" id="">
       </div>
       <div>
           <label>Address:</label>

@@ -22,9 +22,8 @@ const ladminController = async (req, res) => {
         const findAdmin = await adminModel.findOne({ where: { email: email } })
         if (findAdmin) {
             if (findAdmin.password == password) {
-                const obj={id:findAdmin.id}
-                var token =jwt.sign(obj,process.env.JWT_SECRET)
-                return res.status(200).json({ message: "Admin login",token:token, sucess: true, admin: findAdmin })
+              
+                return res.status(200).json({ message: "Admin login", sucess: true, admin: findAdmin })
             }
             return res.status(401).json({ message: "incorrect password" })
         }

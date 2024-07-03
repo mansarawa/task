@@ -21,12 +21,17 @@ export class RegisterComponent {
   userRegister: FormGroup;
   company: string = 'company'
   managers: any[] = [];
+  isDisable=true;
+  cname:any;
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService
   ) {
+    this.cname = JSON.parse(localStorage.getItem('admin') || '{}');
+    console.log(this.cname);
     this.adminRegister = this.fb.group({
       adminname: ['', Validators.required],
       companyname: ['', Validators.required],
@@ -37,13 +42,15 @@ export class RegisterComponent {
     });
     this.managerRegister = this.fb.group({
       name: ['', Validators.required],
-    
+      companyname: [this.cname.companyname],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
-    });
+    });console.log(this.cname)
+
     this.userRegister = this.fb.group({
       name: ['', Validators.required],
       salary: ['', Validators.required],
+      companyname: [this.cname.companyname],
       // managerId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -79,9 +86,7 @@ export class RegisterComponent {
       this.companyService.createManager(this.managerRegister.value).subscribe(
         response => {
           console.log('Form Submitted', response);
-          localStorage.removeItem('user');
-          localStorage.removeItem('admin');
-          localStorage.setItem('manager', JSON.stringify(response.data))
+          
           console.log(response.data)
           this.router.navigate(['company'])
           this.managerRegister.reset();
@@ -102,9 +107,7 @@ export class RegisterComponent {
         this.companyService.createUser(this.userRegister.value).subscribe(
           response => {
             console.log('Form Submitted', response);
-            localStorage.removeItem('user');
-          localStorage.removeItem('manager');
-            localStorage.setItem('manager', JSON.stringify(response.data));
+          
             console.log(response.data);
             this.router.navigate(['company']);
             this.userRegister.reset();
