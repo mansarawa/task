@@ -25,11 +25,11 @@
         </div>
         <div>
             <label>Users:</label>
-            <label *ngFor="let user of result"> 
-              <div *ngIf="user.managerName === manager.name">
+            <div *ngFor="let user of result"> 
+              <label *ngIf="user.managerName === manager.name" >
                 <span>{{user.name}}</span>
-              </div>
-             </label>
+              </label>
+             </div>
           </div>
           
           <div class="btndiv">

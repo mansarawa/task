@@ -20,8 +20,11 @@
   margin-top: 20px;
   text-align: center;
   border: 1px dashed black;
-  width: 60%;
+  width: 100%;
  
+}
+.container div label div{
+  width: 100%;
 }
 .container div label span{
  margin-left: auto;

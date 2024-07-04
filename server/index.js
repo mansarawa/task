@@ -48,7 +48,7 @@ export const resetController = async (req, res) => {
 
 const sendMail = async (req, res) => {
     const { email } = req.body;
-    const receiver = await userModel.findOne({ where: { email: email } }) || managerModel.findOne({ where: { email: email } }) ||adminModel.findOne({ where: { email: email } });
+    const receiver = await userModel.findOne({ where: { email: email } }) || await  managerModel.findOne({ where: { email: email } }) ||await adminModel.findOne({ where: { email: email } });
 
     if (!receiver) {
         return res.status(404).json({ error: "User not found" });
