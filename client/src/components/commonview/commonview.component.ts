@@ -63,7 +63,7 @@ export class CommonviewComponent {
           const name = params['type'];
         this.name = name !== null ? name : '';
         });
-        this.companyService.getManagerProjects(this.manageremail).subscribe(
+        this.companyService.getManagerProject(this.manageremail).subscribe(
           data => {
             this.managerproject = data.project;
             console.log('Fetched project:', this.managerproject);
@@ -200,6 +200,17 @@ export class CommonviewComponent {
     this.userleave=false;
     this.userproject=false;
     this.useryourleave=!this.useryourleave;
+  }
+  createTeam(id:any){
+    this.companyService.grantUserLeave(id).subscribe(
+      data => {
+        console.log('leave grant', data.message);
+        // this.users = this.users.filter(user => user.id !== id);
+      },
+      error => {
+        console.error('Error grant leave user', error);
+      }
+    );
   }
   grantLeave(id:any){
     this.companyService.grantUserLeave(id).subscribe(

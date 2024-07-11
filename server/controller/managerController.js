@@ -85,9 +85,7 @@ const getManagerController=async(req,res)=>{
 
 const getManagerLeaveController = async (req, res) => {
     try {
-      const { email } = req.body;
-      
-     
+      const { email } = req.body;     
       console.log("Received email leave:", email);
   
       if (!email) {

@@ -152,6 +152,22 @@ export class CompanyComponent  implements OnInit {
     this.home=!this.home;
 
   }
+  managerClick(){
+    this.alladmins=true;
+    this.home=false;
+    this.allusers=false;
+    this.project=false
+    this.leave=false;
+    this.allmanagers=!this.allmanagers;
+  }
+  userClick(){
+    this.alladmins=true;
+    this.home=false;
+    this.allmanagers=false;
+    this.project=false
+    this.leave=false;
+    this.allusers=!this.allusers;
+  }
   projectClick(){
     this.alladmins=false;
     this.allmanagers=false;

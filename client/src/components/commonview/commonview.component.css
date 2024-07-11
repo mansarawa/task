@@ -86,14 +86,13 @@ button:hover{
 }
 
 .btn{
-    background-color: black;
+    background-color: #0b1739;
+    border: 1px solid #cb3cff;
     color: white;
     cursor: pointer;
     margin-top: 20px;
   
     padding: 10px;
-    
-    border: none;
     border-radius: 5px;
 }
 

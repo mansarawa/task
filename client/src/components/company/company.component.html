@@ -1,10 +1,12 @@
 <div class="container">
   <div class="sidebar">
     <nav>
-      <li><button type="button" (click)="homeClick()">Home</button></li>
-      <li><button type="button" (click)="projectClick()">Projects</button></li>
+      <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
+      <li><button type="button" (click)="managerClick()" [ngStyle]="{'color': allmanagers ? '#cb3cff' : 'white'}">Manager</button></li>
+      <li><button type="button" (click)="userClick()" [ngStyle]="{'color': allusers ? '#cb3cff' : 'white'}">Users</button></li>
+      <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
     
-      <li><button type="button" (click)="leaveClick()">Leave</button></li>
+      <li><button type="button" (click)="leaveClick()" [ngStyle]="{'color': leave ? '#cb3cff' : 'white'}">Leave</button></li>
       <li><button type="button" (click)="logoutClick()">Logout</button></li>
     </nav>
 </div>
@@ -116,7 +118,7 @@
   </div>
  
 
-  <div class="items">
+  <div class="items" *ngIf="leave">
     <h3>
       <label for>Leave in Your Company </label>
 
@@ -161,7 +163,7 @@
   </div>
 
 
-<div class="items">
+<div class="items" *ngIf="project">
   <h3>
     <label for>Project in Your Company </label>
     <label for><a [routerLink]="['/register']" [queryParams]="{name: createproject}"

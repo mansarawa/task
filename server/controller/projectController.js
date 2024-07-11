@@ -19,9 +19,9 @@ const createProjectController = async (req, res) => {
 const getManagerProjectController = async (req, res) => {
     try {
         const { manageremail } = req.body;
-        
+        console.log("hello")
        
-        console.log("Received email project:", manageremail);
+         console.log("Received email project:", manageremail);
     
         if (!manageremail) {
           throw new Error('Email is required');

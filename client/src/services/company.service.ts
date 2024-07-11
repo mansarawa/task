@@ -34,9 +34,10 @@ export class CompanyService {
   getManagerLeave():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/getmangerleave`)
   }
-  getManagerProjects(email:string):Observable<any>{
+  getManagerProject(manageremail:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}/getManagerProject`,email,{headers})
+    
+    return this.http.post(`${this.apiUrl}/getmanagerproject`, {manageremail}, { headers });
   }
   grantManagerLeave(id:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -82,8 +83,10 @@ export class CompanyService {
   }
   getManagerLeaveByEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${this.apiUrl}/getmanagerleavebyemail`, { email },{headers});
+    
+    return this.http.post(`${this.apiUrl}/getmanagerleavebyemail`, {email}, { headers });
   }
+  
   applyUserLeave(data:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/applyuserleave`,data,{headers})

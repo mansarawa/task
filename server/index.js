@@ -17,7 +17,7 @@ const app=express();
 dotenv.config();
 connection();
 app.use(express.json())
-app.use(cors())
+app.use(cors());
 
 app.use('/',admin)
 app.use('/',ladmin)

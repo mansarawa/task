@@ -8,6 +8,6 @@ const getAdminProject=express.Router();
 getAdminProject.get('/getadminproject',getAdminProjectController)
 
 const getManagerProject=express.Router();
-getManagerProject.post('/getManagerProject',getManagerProjectController)
+getManagerProject.post('/getmanagerproject',getManagerProjectController)
 
 export {project,getManagerProject,getAdminProject}

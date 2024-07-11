@@ -2,10 +2,10 @@
 <div class="container" *ngIf="name === 'manager'">
   <div class="sidebar">
       <nav>
-        <li><button type="button" (click)="homeClick()">Home</button></li>
-        <li><button type="button" (click)="projectClick()">Projects</button></li>
-        <li><button type="button" (click)="yourleaveClick()">Your Leave</button></li>
-        <li><button type="button" (click)="leaveClick()">Leave</button></li>
+        <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
+        <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
+        <li><button type="button" (click)="yourleaveClick()" [ngStyle]="{'color': yourleave ? '#cb3cff' : 'white'}">Your Leave</button></li>
+        <li><button type="button" (click)="leaveClick()" [ngStyle]="{'color': leave ? '#cb3cff' : 'white'}"> Leave</button></li>
         <li><button type="button" (click)="logoutClick()">Logout</button></li>
       </nav>
   </div>
@@ -49,12 +49,12 @@
     </div>
     
   </div>
-  <div class="project" *ngIf="project">
+  <div class="leave" *ngIf="project">
     <div class="items">
       <h1>
-        <label for>Project's</label>
-  
+        <label>Project's</label>
       </h1>
+      
       <table  border="1">
         <thead>
           <tr>
@@ -62,7 +62,7 @@
             <th>Project Name</th>
             <th>Desc</th>
             <th>DeadLine</th>
-           
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -71,13 +71,24 @@
             <td>{{ project.projectname }}</td>
             <td>{{ project.desc }}</td>
             <td>{{project.deadline |date:'yyyy-MM-dd' }}</td>
-           
+            <td class="action">
+              
+  
+              <div >
+                <button type="button" class="grant"
+                  (click)="createTeam(project.id)">Create Team</button>
+                
+              </div>
+  
+              
+  
+            </td>
           </tr>
         </tbody>
       </table>
-     
     </div>
-  </div>
+    </div>
+  
   <div class="leave" *ngIf="leave">
     <div class="items">
       <h1>
