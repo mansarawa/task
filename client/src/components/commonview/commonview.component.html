@@ -1,5 +1,16 @@
 
 <div class="container" *ngIf="name === 'manager'">
+  <div class="sidebar">
+      <nav>
+        <li><button type="button" (click)="homeClick()">Home</button></li>
+        <li><button type="button" (click)="projectClick()">Projects</button></li>
+        <li><button type="button" (click)="yourleaveClick()">Your Leave</button></li>
+        <li><button type="button" (click)="leaveClick()">Leave</button></li>
+        <li><button type="button" (click)="logoutClick()">Logout</button></li>
+      </nav>
+  </div>
+  <div class="main">
+    <div class="home" *ngIf="home">
     <h1>Manager</h1>
   
         <!-- <div>ID: {{ name.id }}</div> -->
@@ -36,9 +47,142 @@
         <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
         <button name="submit" class="btn" (click)="navigateToView(manager,'manager')">Update</button>
     </div>
+    
+  </div>
+  <div class="project" *ngIf="project">
+    <div class="items">
+      <h1>
+        <label for>Project's</label>
+  
+      </h1>
+      <table  border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Project Name</th>
+            <th>Desc</th>
+            <th>DeadLine</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of managerproject">
+            <td>{{ project.id }}</td>
+            <td>{{ project.projectname }}</td>
+            <td>{{ project.desc }}</td>
+            <td>{{project.deadline |date:'yyyy-MM-dd' }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+  </div>
+  <div class="leave" *ngIf="leave">
+    <div class="items">
+      <h1>
+        <label for>Employee's Leave</label>
+  
+      </h1>
+      <table  border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>user Name</th>
+            <th>email</th>
+            <th>status</th>
+            <th>date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userleave of uleave">
+            <td>{{ userleave.id }}</td>
+            <td>{{ userleave.username }}</td>
+            <td>{{ userleave.email }}</td>
+            <td>{{ userleave.status }}</td>
+            <td>{{userleave.date |date:'yyyy-MM-dd' }}</td>
+            <td class="action">
+              
+  
+              <div *ngIf="userleave.status === 'pending'">
+                <button type="button" class="grant"
+                  (click)="grantLeave(userleave.id)">Grant</button>
+                <button type="button" class="deny"
+                  (click)="denyLeave(userleave.id)">Deny</button>
+              </div>
+  
+              <div *ngIf="userleave.status !== 'pending'">
+                Not Available
+              </div>
+  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     
+    </div>
+  </div>
+  <div class="yourleave" *ngIf="yourleave">
+    <div class="available">
+     
+        
+          <h1>
+            <label for>Your Leave </label>
+      
+          </h1>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>user Name</th>
+                <th>email</th>
+                <th>status</th>
+                <th>date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let managerleave of available">
+                <td>{{ managerleave.id }}</td>
+                <td>{{ managerleave.username }}</td>
+                <td>{{ managerleave.email }}</td>
+                <td>{{ managerleave.status }}</td>
+                <td>{{managerleave.date | date:'yyyy-MM-dd'}}</td>
+              
+              </tr>
+            </tbody>
+          </table>
+       
+        </div>
+        <div class="applyleave">
+          <div class="apply ">
+           
+            <form [formGroup]="applyleave" (ngSubmit)="onSubmit()">
+              <h1>Apply For Leave</h1>
+              <input type="text" [placeholder]="manager.name" [disabled]="isDisable">
+              <input type="text" [placeholder]="manager.email" [disabled]="isDisable">
+              <input type="date" formControlName="date">
+              <button type="submit" class="submitbtn">Submit</button>
+            </form>
+          </div>
+        </div>
+    </div>
+    
+  </div>
   </div>
   
   <div class="container" *ngIf="name === 'user'">
+    <div class="sidebar">
+      <nav>
+        <li><button type="button" (click)="userhomeClick()">Home</button></li>
+        <li><button type="button" (click)="userprojectClick()">Projects</button></li>
+        <li><button type="button" (click)="useryourleaveClick()">Your Leave</button></li>
+       
+        <li><button type="button" (click)="logoutClick()">Logout</button></li>
+      </nav>
+    </div>
+    <div class="main">
+      <div class="home" *ngIf="userhome">
     <h1>Employee</h1>
     <div>
       <label>Company:</label>
@@ -63,6 +207,52 @@
       
       <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
       <button name="submit" class="btn" (click)="navigateToView(user,'user')">Update</button>
-     
-  </div>
-  
+    </div>
+      <div class="yourleave" *ngIf="useryourleave">
+        <div class="available">
+         
+            
+              <h1>
+                <label for>Your Leave </label>
+          
+              </h1>
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>user Name</th>
+                    <th>email</th>
+                    <th>status</th>
+                    <th>date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let userleave of useravailable">
+                    <td>{{ userleave.id }}</td>
+                    <td>{{ userleave.username }}</td>
+                    <td>{{ userleave.email }}</td>
+                    <td>{{ userleave.status }}</td>
+                    <td>{{userleave.date | date:'yyyy-MM-dd'}}</td>
+                  
+                  </tr>
+                </tbody>
+              </table>
+           
+            </div>
+            <div class="applyleave">
+              <div class="apply ">
+               
+                <form [formGroup]="userapplyleave" (ngSubmit)="onUserSubmit()">
+                  <h1>Apply For Leave</h1>
+                  <input type="text" [placeholder]="user.name" [disabled]="isDisable">
+                  <input type="text" [placeholder]="user.email" [disabled]="isDisable">
+                  <input type="date" formControlName="date">
+                  <button type="submit" class="submitbtn">Submit</button>
+                </form>
+              </div>
+            </div>
+        </div>
+        </div>
+
+  </div> 
+   

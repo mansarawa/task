@@ -1,4 +1,6 @@
 .container{
+  background-color: #081028;
+  color:#cb3cff;
     width: 100%;
     display: flex;
 }
@@ -16,7 +18,7 @@
     font-size: 20px;
 }
 .item ul li a{
-    color: black;
+    color: white;
     text-decoration: none;
     
 }

@@ -1,5 +1,5 @@
 import express from 'express'
-import { adminController,ladminController,updateAdminController,deleteAdminController, getAdminController } from '../controller/adminController.js';
+import { adminController,ladminController,updateAdminController,deleteAdminController, getAdminController, getMangerLeaveController, grantManagerLeaveController, denyManagerLeaveController } from '../controller/adminController.js';
 import verify from '../middleware/verify.js';
 
 const admin=express.Router();
@@ -20,4 +20,13 @@ dadmin.delete('/deleteadmin',deleteAdminController)
 
 const gadmin=express.Router();
 gadmin.get('/getadmin',getAdminController)
-export {admin,ladmin,uadmin,dadmin,gadmin}
+
+const leavemanager=express.Router();
+ leavemanager.get('/getmangerleave',getMangerLeaveController)
+
+const grantManager=express.Router();
+grantManager.put('/grantmanagerleave',grantManagerLeaveController)
+
+const denyManager=express.Router();
+denyManager.put('/denymanagerleave',denyManagerLeaveController)
+export {admin,ladmin,uadmin,dadmin,gadmin,leavemanager,grantManager,denyManager}

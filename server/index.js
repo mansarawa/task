@@ -5,9 +5,13 @@ import dotenv from 'dotenv'
 import { adminModel, managerModel, userModel } from "./postgres/postgres.js";
 import nodemailer from "nodemailer";
 
-import {admin,ladmin,uadmin,dadmin, gadmin} from './view/admin.js';
-import {user,luser,uuser,duser, guser} from './view/user.js';
-import {manager,lmanager,umanager,dmanager, gmanager} from './view/manager.js';
+import {admin,ladmin,uadmin,dadmin, gadmin, leavemanager, grantManager, denyManager} from './view/admin.js';
+import {user,luser,uuser,duser, guser, getUserLeave} from './view/user.js';
+import {manager,lmanager,umanager,dmanager,gmanager,grantUser,denyUser,leaveUser, getManagerLeave} from './view/manager.js';
+import { mleave } from './view/leave.js';
+import { uleave } from './view/userleave.js';
+import { getAdminProject, getManagerProject, project } from './view/project.js';
+
 
 const app=express();
 dotenv.config();
@@ -20,31 +24,43 @@ app.use('/',ladmin)
 app.use('/',uadmin)
 app.use('/',dadmin)
 app.use('/',gadmin)
+app.use('/',getAdminProject)
+app.use('/',leavemanager)
+app.use('/',grantManager)
+app.use('/',denyManager)
 app.use('/',user)
 app.use('/',luser)
 app.use('/',uuser)
 app.use('/',duser)
 app.use('/',guser)
+app.use('/',getUserLeave)
+app.use('/',uleave)
 app.use('/',manager)
 app.use('/',lmanager)
 app.use('/',umanager)
 app.use('/',dmanager)
 app.use('/',gmanager)
-
-
-export const resetController = async (req, res) => {
-    const { email } = req.body;
-    const resetUser = await userModel.findOne({ where: { email: email } });
-    const resetManager = await managerModel.findOne({ where: { email: email } });
-    const resetAdmin = await adminModel.findOne({ where: { email: email } });
-    if (resetUser) {
-        return res.json({ user: resetUser });
-    } else if (resetManager) {
-        return res.json({ manager: resetManager });
-    } else {
-        return res.json({ admin: resetAdmin });
-    }
-};
+app.use('/',project)
+app.use('/',getManagerProject)
+app.use('/',getManagerLeave)
+app.use('/',mleave)
+app.use('/',leaveUser)
+app.use('/',grantUser)
+app.use('/',denyUser)
+  
+// export const resetController = async (req, res) => {
+//     const { email } = req.body;
+//     const resetUser = await userModel.findOne({ where: { email: email } });
+//     const resetManager = await managerModel.findOne({ where: { email: email } });
+//     const resetAdmin = await adminModel.findOne({ where: { email: email } });
+//     if (resetUser) {
+//         return res.json({ user: resetUser });
+//     } else if (resetManager) {
+//         return res.json({ manager: resetManager });
+//     } else {
+//         return res.json({ admin: resetAdmin });
+//     }
+// };
 
 const sendMail = async (req, res) => {
     const { email } = req.body;
@@ -83,7 +99,7 @@ const sendMail = async (req, res) => {
 
 
 
-app.post("/reset", resetController);
+// app.post("/reset", resetController);
 app.post("/sendMail", sendMail);
 
 

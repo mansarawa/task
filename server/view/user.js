@@ -1,5 +1,5 @@
 import express from 'express'
-import { userController,luserController,updateUserController,deleteUserController,getUserController } from '../controller/userController.js';
+import { userController,luserController,updateUserController,deleteUserController,getUserController, getUserLeaveController } from '../controller/userController.js';
 import verify from '../middleware/verify.js';
 
 const user=express.Router();
@@ -21,4 +21,8 @@ duser.delete('/deleteuser',deleteUserController)
 
 const guser=express.Router();
 guser.get('/getuser',getUserController)
-export  {user,luser,uuser,duser,guser}
+
+const getUserLeave=express.Router();
+getUserLeave.post('/getuserleavebyemail',getUserLeaveController)
+
+export  {user,luser,uuser,duser,guser,getUserLeave}

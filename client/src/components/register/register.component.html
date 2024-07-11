@@ -112,3 +112,44 @@
   </form>
   
 </div>
+
+
+<div class="container" *ngIf="name === 'createproject'">
+  <form [formGroup]="createProject" (ngSubmit)="projectSubmit()">
+    <h1>Create A Project</h1>
+    <div class="items">
+      <label for="Text">Project Name</label>
+      <input type="text" name="" formControlName="projectname" id="">
+      
+  </div>
+    
+    <div class="items">
+      <label for="desc">Desc</label>
+      <input type="text" formControlName="desc" id="password">
+      <div *ngIf="userRegister.get('desc')?.invalid && userRegister.get('desc')?.touched">Desc is required</div>
+    </div>
+    <div class="items">
+      <label for="salary">DeadLine</label>
+      <input type="date" formControlName="deadline" id="date">
+      <div *ngIf="userRegister.get('date')?.invalid && userRegister.get('date')?.touched">DeadLine is required</div>
+    </div>
+    <div class="items">
+      <label for="managerId">Manager</label>
+      <select formControlName="managername" id="managerName">
+        <option value="" disabled selected hidden>Choose a Manager</option>
+        <option *ngFor="let manager of managers" [value]="manager.name">{{ manager.name }}</option>
+      </select>
+      <div *ngIf="userRegister.get('managername')?.invalid && userRegister.get('managername')?.touched">Manager is required</div>
+    </div>
+    <div class="items">
+      <label for="managerId">Manager</label>
+      <select formControlName="manageremail" id="managerName">
+        <option value="" disabled selected hidden>Choose a Manager</option>
+        <option *ngFor="let manager of managers" [value]="manager.email">{{ manager.email }}</option>
+      </select>
+      <div *ngIf="userRegister.get('manageremail')?.invalid && userRegister.get('manageremail')?.touched">Manager is required</div>
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
+  
+</div>

@@ -19,6 +19,7 @@ export class RegisterComponent {
   adminRegister: FormGroup;
   managerRegister: FormGroup;
   userRegister: FormGroup;
+  createProject:FormGroup;
   company: string = 'company'
   managers: any[] = [];
   isDisable=true;
@@ -56,7 +57,13 @@ export class RegisterComponent {
       password: ['', Validators.required],
       managerName: ['', Validators.required]
     });
-
+    this.createProject = this.fb.group({
+      projectname: ['', Validators.required],
+      desc: ['', Validators.required],
+      deadline: ['',Validators.required],
+      manageremail:['',Validators.required],
+      managername: ['', Validators.required]
+    });
   }
 
   adminSubmit() {
@@ -99,8 +106,6 @@ export class RegisterComponent {
   }
 
   userSubmit() {
-    
-    
       if (this.userRegister.valid) {
         console.log('Form is valid. Submitting...');
     
@@ -122,7 +127,29 @@ export class RegisterComponent {
     
     
   }
+  projectSubmit() {
+    console.log(this.createProject.value)
+    if (this.createProject.valid) {
+      console.log('Form is valid. Submitting...');
   
+      this.companyService.createProject(this.createProject.value).subscribe(
+        response => {
+          console.log('Form Submitted', response);
+        
+          console.log(response);
+          this.router.navigate(['company']);
+          this.createProject.reset();
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid. Cannot submit.');
+    }
+  
+  
+}
 
   navigateToLogin() {
     this.router.navigate(['login']);

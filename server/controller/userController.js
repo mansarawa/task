@@ -1,5 +1,5 @@
 import { where } from "sequelize";
-import { managerModel, userModel } from "../postgres/postgres.js";
+import { managerModel, userLeaveModel, userModel } from "../postgres/postgres.js";
 
  const userController=async(req,res)=>{
     const {name,email,password,salary,mangerId,companyname,managerName}=req.body;
@@ -85,4 +85,23 @@ const getUserController=async(req,res)=>{
     const getUser=await userModel.findAll();
     return res.status(200).json({user:getUser})
 }
-export {userController,luserController,updateUserController,deleteUserController,getUserController}
+
+const getUserLeaveController = async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+      // Log the email received in the request body
+      console.log("Received email:", email);
+  
+      if (!email) {
+        throw new Error('Email is required');
+      }
+  
+      const userleave = await userLeaveModel.findAll({ where: { email: email } });
+      return res.json({ userleave });
+    } catch (error) {
+      console.error("Error in getManagerLeaveController:", error.message);
+      return res.status(400).json({ error: error.message });
+    }
+  };
+export {userController,luserController,updateUserController,deleteUserController,getUserController,getUserLeaveController}

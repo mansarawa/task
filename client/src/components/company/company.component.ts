@@ -15,11 +15,21 @@ import { ViewComponent } from '../view/view.component';
 })
 export class CompanyComponent  implements OnInit {
   admins:any[]=[];
+  mleave:any[]=[];
   managers:any[]=[];
+  getproject:any[]=[];
   users:any[]=[];
   user:string="user"
   company:string="company"
+  home=true;
+  alladmins=false;
+   allmanagers=false;
+   allusers=false;
+  leave=false;
+  project=false;
+
   manager:string="manager"
+  createproject:string="createproject"
   constructor( private companyService: CompanyService,private router:Router){}
 
   ngOnInit(): void {
@@ -35,13 +45,24 @@ export class CompanyComponent  implements OnInit {
       },
       error => console.error('Error fetching admins', error)
     );
+    this.companyService.getProject().subscribe(
+      data =>{ this.getproject = data.projects
+        console.log("projects"+this.getproject)
+      },
+      error => console.error('Error fetching admins', error)
+    );
     this.companyService.getUsers().subscribe(
       data =>{ this.users = data.user
         console.log(this.users)
       },
       error => console.error('Error fetching admins', error)
     );
-    
+    this.companyService.getManagerLeave().subscribe(
+      data =>{ this.mleave = data.managerLeave
+        console.log(this.mleave)
+      },
+      error => console.error('Error fetching admins', error)
+    );
   }
 
   deleteAdmin(id:any) {
@@ -82,6 +103,30 @@ export class CompanyComponent  implements OnInit {
     localStorage.setItem('selectedItem', JSON.stringify({ item, type }));
     this.router.navigate(['/view'], { queryParams: {  type: type } });
   }
+
+  grantLeave(id:any){
+    this.companyService.grantManagerLeave(id).subscribe(
+      data => {
+        console.log('leave grant', data.message);
+        // this.users = this.users.filter(user => user.id !== id);
+      },
+      error => {
+        console.error('Error grant leave user', error);
+      }
+    );
+  }
+
+  denyLeave(id:any){
+    this.companyService.denyManagerLeave(id).subscribe(
+      data => {
+        console.log('leave deny', data.message);
+        // this.users = this.users.filter(user => user.id !== id);
+      },
+      error => {
+        console.error('Error deny leave user', error);
+      }
+    );
+  }
   whoIn(): void {
     if (localStorage.getItem('admin')) {
      localStorage.removeItem('manager');
@@ -96,5 +141,38 @@ export class CompanyComponent  implements OnInit {
       // Handle case when none of the items are present
       console.log('No valid user found in localStorage');
     }
+  }
+  homeClick(){
+    this.alladmins=true;
+    this.allmanagers=false;
+    this.allusers=false;
+    this.project=false
+    this.leave=false;
+
+    this.home=!this.home;
+
+  }
+  projectClick(){
+    this.alladmins=false;
+    this.allmanagers=false;
+    this.allusers=false;
+    this.home=false;
+  
+    this.leave=false;
+    this.project=!this.project;
+  }
+  leaveClick(){
+    this.alladmins=false;
+    this.allmanagers=false;
+    this.allusers=false;
+    this.home=false;
+    this.project=false
+    this.leave=!this.leave;
+  }
+ 
+  logoutClick(){
+    localStorage.clear();
+    console.log('click')
+    this.router.navigate([''])
   }
 }

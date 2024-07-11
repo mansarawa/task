@@ -1,4 +1,4 @@
-import { adminModel } from "../postgres/postgres.js";
+import { adminModel, mleaveModel } from "../postgres/postgres.js";
 import jwt from 'jsonwebtoken'
 const adminController = async (req, res) => {
     const { adminname, companyname, address, gst, email, role, password } = req.body;
@@ -17,12 +17,12 @@ const adminController = async (req, res) => {
 
 const ladminController = async (req, res) => {
     const { email, password } = req.body;
-    console.log('Request Body:', req.body); 
+    console.log('Request Body:', req.body);
     try {
         const findAdmin = await adminModel.findOne({ where: { email: email } })
         if (findAdmin) {
             if (findAdmin.password == password) {
-              
+
                 return res.status(200).json({ message: "Admin login", sucess: true, admin: findAdmin })
             }
             return res.status(401).json({ message: "incorrect password" })
@@ -57,20 +57,55 @@ const updateAdminController = async (req, res) => {
 }
 
 const deleteAdminController = async (req, res) => {
-    const  {id}  = req.body;
+    const { id } = req.body;
     try {
-    const findAdmin = await adminModel.findOne({ where: { id: id } })
-    if (findAdmin) {
-        await findAdmin.destroy();
-        return res.status(200).json({ message: "delete successfull", success: true })
+        const findAdmin = await adminModel.findOne({ where: { id: id } })
+        if (findAdmin) {
+            await findAdmin.destroy();
+            return res.status(200).json({ message: "delete successfull", success: true })
+        }
+        return res.status(401).json({ message: "delete unsuccessfull", success: false })
+    } catch (error) {
+        console.log(error)
     }
-    return res.status(401).json({ message: "delete unsuccessfull", success: false })
-} catch (error) {
-    console.log(error)
-}
 }
 const getAdminController = async (req, res) => {
     const getAdmin = await adminModel.findAll();
     return res.status(200).json({ admin: getAdmin })
 }
-export { adminController, ladminController, updateAdminController, deleteAdminController, getAdminController }
+
+const getMangerLeaveController = async (req, res) => {
+    const getManagerLeave = await mleaveModel.findAll();
+    return res.status(200).json({ managerLeave: getManagerLeave })
+   
+}
+const grantManagerLeaveController = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const findLeave = await mleaveModel.findOne({ where: { id: id } })
+        if (findLeave) {
+            let status = "Grant"
+            await mleaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Grant successfull", success: true })
+        }
+        return res.status(401).json({ message: "error", success: false })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const denyManagerLeaveController = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const findLeave = await mleaveModel.findOne({ where: { id: id } })
+        if (findLeave) {
+            let status = "Deny"
+            await mleaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Deny", success: true })
+        }
+        return res.status(401).json({ message: "error", success: false })
+    } catch (error) {
+        console.log(error)
+    }
+}
+export { adminController, ladminController, updateAdminController, deleteAdminController, getAdminController, grantManagerLeaveController, denyManagerLeaveController, getMangerLeaveController }

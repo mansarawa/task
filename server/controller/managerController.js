@@ -1,4 +1,5 @@
-import { managerModel } from "../postgres/postgres.js";
+import { managerModel, mleaveModel } from "../postgres/postgres.js";
+import { userLeaveModel } from "../postgres/postgres.js";
 import bcrypt from 'bcrypt'
 const managerController = async (req, res) => {
     const { name, email, password, role,companyname } = req.body;
@@ -82,9 +83,64 @@ const getManagerController=async(req,res)=>{
     return res.status(200).json({manager:getManager})
 }
 
+const getManagerLeaveController = async (req, res) => {
+    try {
+      const { email } = req.body;
+      
+     
+      console.log("Received email leave:", email);
+  
+      if (!email) {
+        throw new Error('Email is required');
+      }
+  
+      const managerleave = await mleaveModel.findAll({ where: { email: email } });
+      return res.json({ managerleave });
+    } catch (error) {
+      console.error("Error in getManagerLeaveController:", error.message);
+      return res.status(400).json({ error: error.message });
+    }
+  };
+  
 const getManagerNameById = async (managerId) => {
     
-    const manager = await managerModel.findByPk(managerId);
-    return manager ? manager.name : null;
+    const manager = await managerModel.findAll({where:{id:id}});
+    return res.json({manager})
 };
-export {managerController,lmanagerController,updateManagerController,deleteManagerController,getManagerController,getManagerNameById}
+
+const getUserLeaveController = async (req, res) => {
+    const getUserLeave = await userLeaveModel.findAll();
+    return res.status(200).json({ userLeave: getUserLeave })
+   
+}
+const grantUserLeaveController = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const findLeave = await userLeaveModel.findOne({ where: { id: id } })
+        if (findLeave) {
+            let status = "Grant"
+            await userLeaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Grant successfull", success: true })
+        }
+        return res.status(401).json({ message: "error", success: false })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const denyUserLeaveController = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const findLeave = await userLeaveModel.findOne({ where: { id: id } })
+        if (findLeave) {
+            let status = "Deny"
+            await userLeaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Deny", success: true })
+        }
+        return res.status(401).json({ message: "error", success: false })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export {managerController,lmanagerController,updateManagerController,deleteManagerController,getManagerController,getManagerNameById,grantUserLeaveController, denyUserLeaveController, getUserLeaveController,getManagerLeaveController}

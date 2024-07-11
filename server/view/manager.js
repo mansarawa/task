@@ -1,5 +1,5 @@
 import verify from "../middleware/verify.js";
-import { managerController,lmanagerController ,updateManagerController,deleteManagerController, getManagerController} from "../controller/managerController.js";
+import { managerController,lmanagerController ,updateManagerController,deleteManagerController, getManagerController, getUserLeaveController, grantUserLeaveController, denyUserLeaveController, getManagerLeaveController} from "../controller/managerController.js";
 import express from 'express'
 
 const manager=express.Router();
@@ -17,4 +17,17 @@ dmanager.delete('/deletemanager',deleteManagerController)
 
 const gmanager=express.Router();
 gmanager.get('/getmanager',getManagerController)
-export  {manager,lmanager,umanager,dmanager,gmanager}
+
+const getManagerLeave=express.Router();
+getManagerLeave.post('/getmanagerleavebyemail',getManagerLeaveController)
+
+const leaveUser=express.Router();
+leaveUser.get('/getuserleave',getUserLeaveController)
+
+const grantUser=express.Router();
+grantUser.put('/grantuserleave',grantUserLeaveController)
+
+const denyUser=express.Router();
+denyUser.put('/denyuserleave',denyUserLeaveController)
+
+export  {manager,lmanager,umanager,dmanager,gmanager,grantUser,denyUser,leaveUser,getManagerLeave}

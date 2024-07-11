@@ -15,6 +15,10 @@ export class CompanyService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/createadmin`, adminData, { headers });
   }
+  createProject(projectData: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/createproject`, projectData, { headers });
+  }
   lAdmin(adminData:any):Observable<any>{
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/adminlogin`, adminData);
@@ -23,7 +27,25 @@ export class CompanyService {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(`${this.apiUrl}/getadmin`);
   }
-  
+  getProject(): Observable<any> {
+   
+    return this.http.get<any>(`${this.apiUrl}/getadminproject`);
+  }
+  getManagerLeave():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/getmangerleave`)
+  }
+  getManagerProjects(email:string):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/getManagerProject`,email,{headers})
+  }
+  grantManagerLeave(id:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<any>(`${this.apiUrl}/grantmanagerleave`,{id},{headers})
+  }
+  denyManagerLeave(id:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<any>(`${this.apiUrl}/denymanagerleave`,{id},{headers})
+  }
   uAdmin(user:any):Observable<any>{
     const headers=new HttpHeaders({'Content-Type':'application/json'})
     return this.http.put<any>(`${this.apiUrl}/updateadmin`,user,{headers})
@@ -53,6 +75,32 @@ export class CompanyService {
   dManager(id:any):Observable<any>{
    
     return this.http.delete<any>(`${this.apiUrl}/deletemanager`,{body:{id:id}})
+  }
+  applyManagerLeave(data:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/applymanagerleave`,data,{headers})
+  }
+  getManagerLeaveByEmail(email: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/getmanagerleavebyemail`, { email },{headers});
+  }
+  applyUserLeave(data:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}/applyuserleave`,data,{headers})
+  }
+  getUserLeaveByEmail(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/getuserleavebyemail`, { email });
+  }
+  getUserLeave():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/getuserleave`)
+  }
+  grantUserLeave(id:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<any>(`${this.apiUrl}/grantuserleave`,{id},{headers})
+  }
+  denyUserLeave(id:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<any>(`${this.apiUrl}/denyuserleave`,{id},{headers})
   }
   createUser(userData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
