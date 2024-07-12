@@ -124,7 +124,7 @@ export class ViewComponent implements OnInit {
         this.item = storedData.item || {};
       } catch (error) {
         console.error('Error parsing JSON from localStorage:', error);
-        this.item = {}; // Default value if parsing fails
+        this.item = {}; 
       }
 
       console.log(this.item);

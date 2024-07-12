@@ -11,6 +11,7 @@ import { CompanyComponent } from '../components/company/company.component';
 import { ViewComponent } from '../components/view/view.component';
 import { CommonviewComponent } from '../components/commonview/commonview.component';
 import { PassemailComponent } from '../components/passemail/passemail.component';
+import { CreateteamComponent } from '../components/createteam/createteam.component';
 
 
 export const routes: Routes = [
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path:'forgetpassword',component:PassemailComponent,pathMatch:"full"},
     {path:'company',component:CompanyComponent,pathMatch:"full"},
     {path:'view',component:ViewComponent,pathMatch:"full"},
-    {path:'commonview',component:CommonviewComponent,pathMatch:"full"}
+    {path:'commonview',component:CommonviewComponent,pathMatch:"full"},
+    {path:'createteam',component:CreateteamComponent,pathMatch:"full"}
 ];

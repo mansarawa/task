@@ -201,16 +201,9 @@ export class CommonviewComponent {
     this.userproject=false;
     this.useryourleave=!this.useryourleave;
   }
-  createTeam(id:any){
-    this.companyService.grantUserLeave(id).subscribe(
-      data => {
-        console.log('leave grant', data.message);
-        // this.users = this.users.filter(user => user.id !== id);
-      },
-      error => {
-        console.error('Error grant leave user', error);
-      }
-    );
+  createTeam(projectname:any){
+
+    this.router.navigate(['createteam'], { queryParams:   {projectname:projectname}  });
   }
   grantLeave(id:any){
     this.companyService.grantUserLeave(id).subscribe(
