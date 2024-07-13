@@ -5,7 +5,6 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViewComponent } from '../view/view.component';
 
-
 @Component({
   selector: 'app-company',
   standalone: true,

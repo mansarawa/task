@@ -15,11 +15,28 @@ export class HomeComponent {
    company:string="company";
    user:string="user";
    manager:string="manager";
-  constructor(private router:Router){}
+   checkPerson=false;
+  constructor(private router:Router){
+  if( localStorage.getItem('admin') || localStorage.getItem('manager') ||localStorage.getItem('user') ){
+    this.checkPerson= true
+  }
+  }
   navigateToRegister(){
     this.router.navigate(['register'])
   }
   navigateToURegister(){
     this.router.navigate(['uregister'])
+  }
+  goDashboard(){
+    if(localStorage.getItem('admin')){
+    this.router.navigate(['company'])
+
+    }
+    else if(localStorage.getItem('manager')){
+      this.router.navigate(['commonview'], { queryParams: { type: 'manager' } });
+    }
+    else{
+      this.router.navigate(['commonview'], { queryParams: { type: 'user' } });
+    }
   }
 }

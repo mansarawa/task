@@ -11,7 +11,7 @@ import {manager,lmanager,umanager,dmanager,gmanager,grantUser,denyUser,leaveUser
 import { mleave } from './view/leave.js';
 import { uleave } from './view/userleave.js';
 import { getAdminProject, getManagerProject, project } from './view/project.js';
-import { team } from './view/team.js';
+import { team, userProject } from './view/team.js';
 
 
 const app=express();
@@ -34,6 +34,7 @@ app.use('/',luser)
 app.use('/',uuser)
 app.use('/',duser)
 app.use('/',guser)
+app.use('/',userProject)
 app.use('/',getUserLeave)
 app.use('/',uleave)
 app.use('/',manager)

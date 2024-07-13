@@ -1,8 +1,11 @@
 import express from 'express'
-import { createTeamController } from '../controller/teamController.js';
+import { createTeamController, getUserProjectsController } from '../controller/teamController.js';
 
 const team=express.Router();
 
 team.post('/createteam',createTeamController)
 
-export {team}
+const userProject=express.Router();
+userProject.post('/userproject',getUserProjectsController)
+
+export {team,userProject}

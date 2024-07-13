@@ -39,6 +39,11 @@ export class CompanyService {
     
     return this.http.post(`${this.apiUrl}/getmanagerproject`, {manageremail}, { headers });
   }
+  createProjectTeam(data:any):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    
+    return this.http.post(`${this.apiUrl}/createteam`, data, { headers });
+  }
   grantManagerLeave(id:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<any>(`${this.apiUrl}/grantmanagerleave`,{id},{headers})
@@ -94,6 +99,7 @@ export class CompanyService {
   getUserLeaveByEmail(email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/getuserleavebyemail`, { email });
   }
+
   getUserLeave():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/getuserleave`)
   }
@@ -117,7 +123,10 @@ export class CompanyService {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(`${this.apiUrl}/getuser`);
   }
-  
+   getUserProjects(username: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/userproject`,{username},{headers});
+  }
   dUser(id:any):Observable<any>{
     
     return this.http.delete<any>(`${this.apiUrl}/deleteuser`,{body:{id:id}});

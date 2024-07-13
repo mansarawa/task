@@ -34,4 +34,4 @@ const sequelize = new Sequelize('postgres', 'mansa', '1884', {
         console.error('Unable to connect to the database:', error);
       }
   }
-  export {connection,adminModel,userModel,managerModel,mleaveModel,userLeaveModel,projectModel}
+  export {connection,adminModel,userModel,managerModel,mleaveModel,userLeaveModel,projectModel,teamModel}

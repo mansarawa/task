@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken'
 const adminController = async (req, res) => {
     const { adminname, companyname, address, gst, email, role, password } = req.body;
     try {
-        const existAdminm = await adminModel.findOne({ where: { email: email } })
-        if (!existAdminm) {
+        const existAdmin = await adminModel.findOne({ where: { email: email } })
+        if (!existAdmin) {
             const newAdmin = await adminModel.create(req.body);
             return res.status(201).json({ messsage: 'user added success', data: newAdmin })
         }

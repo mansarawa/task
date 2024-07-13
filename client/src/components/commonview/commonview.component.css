@@ -60,13 +60,15 @@ button:hover{
   align-items: center;
 }
 .home h1{
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 .home div{
- width: 40%;
+ width: 90%;
  margin-left: 5%;
   display: flex;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #cb3cff;
 }
 .home div label{
   width: 100%;
@@ -95,7 +97,10 @@ button:hover{
     padding: 10px;
     border-radius: 5px;
 }
-
+.btn:hover{
+  background-color: #cb3cff;
+  color: white;
+}
 
   .btndiv{
     align-items: center;

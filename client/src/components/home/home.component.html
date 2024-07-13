@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!checkPerson">
     <div class="ndashboard">
         <h1>WelCome To ABC Software</h1>
      
@@ -13,6 +13,17 @@
             <a [routerLink]="['/login']" [queryParams]="{name: user}" class="btn">Login As User</a>
         </div>
 
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="checkPerson" >
+    <div></div>
+    <div class="home">
+        <h1>WelCome To ABC Software</h1>
+        <div class="btndiv">
+            <button type="button" class="btn" (click)="goDashboard()">Go To Dashboard</button>
+            <button type="button" class="btn">Go To Dashboard</button>
         </div>
     </div>
 </div>

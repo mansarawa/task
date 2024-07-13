@@ -34,13 +34,16 @@ export class CommonviewComponent {
   applyleave:FormGroup;
   userapplyleave:FormGroup;
   managerproject:any[]=[];
+  userProjects:any[]=[];
   manageremail: string = '';
   useremail:string='';
+  username:string='';
   constructor(private route: ActivatedRoute,private router:Router,private companyService:CompanyService,private fb:FormBuilder) {
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.manageremail = this.manager.email;
     this.useremail=this.user.email;
+    this.username=this.user.name
     this.applyleave=this.fb.group({
        username:[this.manager.name],
        email:[this.manager.email],
@@ -98,7 +101,15 @@ export class CommonviewComponent {
       },
       error => console.error('Error fetching admins', error)
     );
-   
+    
+      this.companyService.getUserProjects(this.username).subscribe(
+        data => {
+          this.userProjects = data.projects;
+          console.log("User projects:", this.userProjects);
+        },
+        error => console.error('Error fetching user projects', error)
+      );
+    
     
   }
   onSubmit(){

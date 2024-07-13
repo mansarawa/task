@@ -1,6 +1,21 @@
 <div class="container">
-    <form [formGroup]="createTeam">
-        <input type="text" name="" [placeholder]="placeproject || 'enter project name'" [disabled]="isDisable" id="">
-        
-    </form>
+  <form [formGroup]="createTeam" (ngSubmit)="create()">
+    <div>
+    <label for="" >Project Name:</label>
+    <input type="text" formControlName="projectname" [placeholder]="placeproject || 'enter project name'" [disabled]="isDisable">
+  </div>
+  <div>
+    <label for="">Users-:</label>
+    <section>
+    <ng-multiselect-dropdown 
+      [placeholder]="'Select users'"
+      [data]="filteredUsers"
+      formControlName="users"
+      [settings]="dropdownSettings">
+      
+    </ng-multiselect-dropdown>
+  </section>
+  </div>
+    <button type="submit" class="btn">Create Team</button>
+  </form>
 </div>
