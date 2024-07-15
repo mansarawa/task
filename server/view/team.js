@@ -1,5 +1,5 @@
 import express from 'express'
-import { createTeamController, getUserProjectsController } from '../controller/teamController.js';
+import { createTeamController, findProjectTeamController, getUserProjectsController } from '../controller/teamController.js';
 
 const team=express.Router();
 
@@ -8,4 +8,7 @@ team.post('/createteam',createTeamController)
 const userProject=express.Router();
 userProject.post('/userproject',getUserProjectsController)
 
-export {team,userProject}
+const findProjectTeam=express.Router();
+findProjectTeam.post('/findprojectteam',findProjectTeamController)
+
+export {team,userProject,findProjectTeam}

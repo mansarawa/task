@@ -49,4 +49,16 @@ const getUserProjectsController = async (req, res) => {
   }
 };
 
-export { createTeamController,getUserProjectsController };
+const findProjectTeamController=async(req,res)=>{
+  const {projectname}=req.body
+  const findTeam=await teamModel.findOne({where:{projectname:projectname}})
+  if(findTeam){
+    return res.status(200).json({success:true})
+  }
+  else{
+   
+      return res.status(200).json({success:false})
+    
+  }
+}
+export { createTeamController,getUserProjectsController,findProjectTeamController };

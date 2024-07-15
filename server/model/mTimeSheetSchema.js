@@ -18,9 +18,9 @@ export const createManagerTimeSchema=async(Sequelize)=>{
             type:DataTypes.STRING,
             allowNull:false
         },
-        timetake:{
+        timetaken:{
             type:DataTypes.FLOAT,
-            // allowNull:false
+            allowNull:false
         }
     })
     return mTimeSheet

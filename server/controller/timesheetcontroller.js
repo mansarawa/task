@@ -12,6 +12,7 @@ const userTimeSheetController = async (req, res) => {
 
         const existingSheet = await userSheet.findOne({
             where: {
+                projectname:projectname,
                 username: username,
                 createdAt: {
                     [Op.between]: [startOfDay, endOfDay]
@@ -62,21 +63,19 @@ const managerTimeSheetController = async (req, res) => {
 
         const existingSheet = await managerSheet.findOne({
             where: {
+                projectname:projectname,
                 managername: managername,
                 createdAt: {
                     [Op.between]: [startOfDay, endOfDay]
                 }
             }
         });
-
         if (existingSheet) {
-            return res.status(400).json({ message: "Timesheet entry for today already exists." });
+            return res.status(200).json({ message: "Timesheet entry for today already exists." ,success:false});
         }
-
-    
         const createSheet = await managerSheet.create(req.body);
         if (createSheet) {
-            return res.status(200).json({ sheet: createSheet });
+            return res.status(200).json({ sheet: createSheet,success:true });
         }
     } catch (error) {
         console.log(error);
@@ -92,7 +91,7 @@ const getmanagerTimeSheetController = async (req, res) => {
         });
 
         if (existingSheet) {
-            return res.status(400).json({ onemanager:existingSheet });
+            return res.status(200).json({ existingSheet });
         }    
       
     } catch (error) {

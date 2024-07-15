@@ -4,6 +4,7 @@
       <nav>
         <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
         <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
+        <li><button type="button" (click)="managerSheetClick()" [ngStyle]="{'color': managerSheetMenu ? '#cb3cff' : 'white'}">Time Sheet</button></li>
         <li><button type="button" (click)="employeeClick()" [ngStyle]="{'color': employee ? '#cb3cff' : 'white'}">Employee</button></li>
         <li><button type="button" (click)="yourleaveClick()" [ngStyle]="{'color': yourleave ? '#cb3cff' : 'white'}">Your Leave</button></li>
         <li><button type="button" (click)="leaveClick()" [ngStyle]="{'color': leave ? '#cb3cff' : 'white'}"> Leave</button></li>
@@ -55,8 +56,7 @@
       <h1>
         <label>Project's</label>
       </h1>
-      
-      <table  border="1">
+      <table border="1">
         <thead>
           <tr>
             <th>ID</th>
@@ -71,24 +71,21 @@
             <td>{{ project.id }}</td>
             <td>{{ project.projectname }}</td>
             <td>{{ project.desc }}</td>
-            <td>{{project.deadline |date:'yyyy-MM-dd' }}</td>
-            <td class="action">
-              
-  
-              <div >
-                <button type="button" class="grant"
-                  (click)="createTeam(project.projectname)">Create Team</button>
-                
+            <td>{{ project.deadline | date: 'yyyy-MM-dd' }}</td>
+            <td class="action" >
+              <div   *ngIf="!projectTeamStatus[project.projectname]">
+                <button type="button" class="grant" (click)="createTeam(project.projectname)">Create Team</button>
               </div>
-  
-              
-  
+              <div  *ngIf="projectTeamStatus[project.projectname]">
+                <button type="button" class="grant" (click)="navigateToManagerSheet(project.projectname)">Submit Timesheet</button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    </div>
+  </div>
+  
     <div class="leave" *ngIf="employee">
       <div class="items">
         <h1>
@@ -131,6 +128,7 @@
         </table>
       </div>
       </div>
+
   <div class="leave" *ngIf="leave">
     <div class="items">
       <h1>
@@ -174,6 +172,36 @@
         </tbody>
       </table>
      
+    </div>
+  </div>
+  <div class="leave" *ngIf="managerSheetMenu">
+    <div class="items">
+      <h1>
+        Time Sheets's
+      </h1>
+      
+      <table  border="1">
+        <thead>
+          <tr>
+            
+            <th>Project Name</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>TimeTaken</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let info of managerTimeSheet">
+            
+            <td>{{ info.projectname }}</td>
+            <td>{{info.title}}</td>
+            <td>{{info.desc}}</td>
+          
+            <td>{{info.timetaken}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="yourleave" *ngIf="yourleave">
@@ -368,12 +396,28 @@
   </div> 
    <div class="usersheet" *ngIf="userSheet">
     <div>
-     
-    </div>
-    <div>
     <form [formGroup]="sendUserTimeSheet" (ngSubmit)="userTimeSubmit()">
       <h1>Time Sheet</h1>
       <label [ngStyle]="{'color': response === 'Your time sheet has been sent' ? 'green' : 'red'}" >{{ response }}</label>
+
+      <!-- <input type="text" [placeholder]="user.name" [disabled]="isDisable"> -->
+      <input type="text" [placeholder]="selectedProject" [disabled]="isDisable">
+      <input type="text" name="" id="" formControlName="title" placeholder="Title">
+      <input type="text" name="" id="" formControlName="desc" placeholder="Description">
+      <input type="number" name="" id="" formControlName="timetaken" placeholder="TimeTaken">
+      <div class="btndiv">
+      <button type="submit" class="grant">Send</button>
+      <button type="button" class="deny" (click)="closeModal()">Close</button>
+    </div>
+    </form>
+  </div>
+   </div>
+
+   <div class="usersheet" *ngIf="managerSheet">
+    <div>
+    <form [formGroup]="sendManagerTimeSheet" (ngSubmit)="managerTimeSubmit()">
+      <h1>Time Sheet</h1>
+      <label [ngStyle]="{'color': response === 'Your timesheet has been sent !' ? 'green' : 'red'}" >{{ response }}</label>
 
       <!-- <input type="text" [placeholder]="user.name" [disabled]="isDisable"> -->
       <input type="text" [placeholder]="selectedProject" [disabled]="isDisable">

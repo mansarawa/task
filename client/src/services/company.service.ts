@@ -150,15 +150,20 @@ export class CompanyService {
   }
 
   sendManagerSheet(sheetData:any):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/usertimesheet`, sheetData)
+    return this.http.post<any>(`${this.apiUrl}/managertimesheet`, sheetData)
   }
 
   getManagerSheet(managername:string):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/myowntimesheet`, managername)
+    return this.http.post<any>(`${this.apiUrl}/myowntimesheet`, {managername})
   }
 
   getAllUserSheet():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/allusertimesheet`)
   }
 
+  //---------------Team------------\\
+
+  checkTeam(projectname:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/findprojectteam`, {projectname})
+  }
 }
