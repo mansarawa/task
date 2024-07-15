@@ -229,7 +229,7 @@
       <nav>
         <li><button type="button" (click)="userhomeClick()">Home</button></li>
         <li><button type="button" (click)="userprojectClick()">Projects</button></li>
-        
+        <li><button type="button" (click)="userTimeClick()">Time Sheets</button></li>
         <li><button type="button" (click)="useryourleaveClick()">Your Leave</button></li>
        
         <li><button type="button" (click)="logoutClick()">Logout</button></li>
@@ -333,16 +333,57 @@
             </table>
           </div>
           </div>
+          <div class="leave" *ngIf="userSheetMenu">
+            <div class="items">
+              <h1>
+                Time Sheets's
+              </h1>
+              
+              <table  border="1">
+                <thead>
+                  <tr>
+                    
+                    <th>Project Name</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>TimeTaken</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let info of userTimeSheet">
+                    
+                    <td>{{ info.projectname }}</td>
+                    <td>{{info.title}}</td>
+                    <td>{{info.desc}}</td>
+                  
+                    <td>{{info.timetaken}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
   </div> 
    <div class="usersheet" *ngIf="userSheet">
-    <form [formGroup]="sendUserTimeSheet" (ngSubmit)="usetTimeSubmit()">
-      <input type="text" [placeholder]="user.name" [disabled]="isDisable">
-      <!-- <input type="text" [placeholder]="projetData" [disabled]="isDisable"> -->
-      <input type="text" name="" id="" formControlName="title">
-      <input type="text" name="" id="" formControlName="desc">
-      <input type="number" name="" id="" formControlName="timetaken">
-      <button type="submit">Send</button>
+    <div>
+     
+    </div>
+    <div>
+    <form [formGroup]="sendUserTimeSheet" (ngSubmit)="userTimeSubmit()">
+      <h1>Time Sheet</h1>
+      <label [ngStyle]="{'color': response === 'Your time sheet has been sent' ? 'green' : 'red'}" >{{ response }}</label>
+
+      <!-- <input type="text" [placeholder]="user.name" [disabled]="isDisable"> -->
+      <input type="text" [placeholder]="selectedProject" [disabled]="isDisable">
+      <input type="text" name="" id="" formControlName="title" placeholder="Title">
+      <input type="text" name="" id="" formControlName="desc" placeholder="Description">
+      <input type="number" name="" id="" formControlName="timetaken" placeholder="TimeTaken">
+      <div class="btndiv">
+      <button type="submit" class="grant">Send</button>
+      <button type="button" class="deny" (click)="closeModal()">Close</button>
+    </div>
     </form>
+  </div>
    </div>

@@ -146,7 +146,7 @@ export class CompanyService {
   }
 
   getUserSheet(username:string):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/mytimesheet`, username)
+    return this.http.post<any>(`${this.apiUrl}/mytimesheet`, {username})
   }
 
   sendManagerSheet(sheetData:any):Observable<any>{

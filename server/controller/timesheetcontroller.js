@@ -20,14 +20,15 @@ const userTimeSheetController = async (req, res) => {
         });
 
         if (existingSheet) {
-            return res.status(400).json({ message: "Timesheet entry for today already exists." });
+            return res.status(200).json({ message: "Timesheet entry for today already exists." ,success:false});
         }
 
     
         const createSheet = await userSheet.create(req.body);
         if (createSheet) {
-            return res.status(200).json({ sheet: createSheet });
+            return res.status(200).json({ sheet: createSheet ,success:true});
         }
+       
     } catch (error) {
         console.log(error);
         return res.status(500).json({ error: "Internal server error." });
@@ -42,7 +43,7 @@ const getuserTimeSheetController = async (req, res) => {
         });
 
         if (existingSheet) {
-            return res.status(400).json({ oneuser:existingSheet });
+            return res.status(200).json({ existingSheet });
         }    
       
     } catch (error) {

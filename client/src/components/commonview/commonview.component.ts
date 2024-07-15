@@ -16,6 +16,7 @@ export class CommonviewComponent {
   useravailable:any[]=[];
   id: string = "";
   type: string = "";
+  response:string="";
   item: any = {};
   uleave:any[]=[];
   name:string='';
@@ -30,24 +31,26 @@ export class CommonviewComponent {
   userleave=false;
   useryourleave=false;
   userproject=false;
+  userSheetMenu=false;
   manager:any;
   user:any;
   result:any[]=[];
   applyleave:FormGroup;
   sendUserTimeSheet:FormGroup;
   userapplyleave:FormGroup;
-  
+  projectData:any;
   managerproject:any[]=[];
   userProjects:any[]=[];
+  userTimeSheet:any[]=[];
   manageremail: string = '';
   useremail:string='';
   username:string='';
-  projectData:any;
+  
+  selectedProject: string | null = null;
   constructor(private route: ActivatedRoute,private router:Router,private companyService:CompanyService,private fb:FormBuilder) {
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.projectData=JSON.parse(localStorage.getItem('projectname') || '{}');
-    console.log(this.projectData)
+   
     this.manageremail = this.manager.email;
     this.useremail=this.user.email;
     this.username=this.user.name
@@ -56,13 +59,13 @@ export class CommonviewComponent {
        email:[this.manager.email],
       date: ['', Validators.required],
     })
-    this.sendUserTimeSheet=this.fb.group({
-      projectname:[''],
-      username:[''],
-      title:[''],
-      desc:[''],
-      timetaken:['']
-    })
+    this.sendUserTimeSheet = this.fb.group({
+      projectname: [this.selectedProject, Validators.required],
+      username: [this.user.name],
+      title: ['', Validators.required],
+      desc: ['', Validators.required],
+      timetaken: ['', Validators.required]
+    });
     this.userapplyleave=this.fb.group({
       username:[this.user.name],
       email:[this.user.email],
@@ -74,7 +77,9 @@ export class CommonviewComponent {
     localStorage.setItem('selectedItem', JSON.stringify({ item, type }));
     this.router.navigate(['/view'], { queryParams: {  type: type } });
   }
- 
+  closeModal(){
+    this.userSheet=!this.userSheet;
+  }
   async ngOnInit() {
     this.route.queryParams.subscribe(params => {
           const name = params['type'];
@@ -123,7 +128,15 @@ export class CommonviewComponent {
         },
         error => console.error('Error fetching user projects', error)
       );
-    
+      
+      this.companyService.getUserSheet(this.username).subscribe(
+        data => {
+          this.userTimeSheet = data.existingSheet;
+          // console.log("data of sheet",data)
+          // console.log("User sheet:", this.userTimeSheet);
+        },
+        error => console.error('Error fetching user projects', error)
+      );
     
   }
   onSubmit(){
@@ -168,8 +181,28 @@ export class CommonviewComponent {
         )
       }
   }
-  usetTimeSubmit(){
-    
+  userTimeSubmit() {
+    if (this.sendUserTimeSheet.valid) {
+      this.companyService.sendUserSheet(this.sendUserTimeSheet.value).subscribe(data => {
+        console.log(data)
+        if(data.success){
+       
+        setTimeout(() => {
+          this.closeModal();
+        }, 3000);
+        this.response="Your timesheet has been sent !"
+        }
+        else{
+        
+        this.response="You have already sent the timesheet !"
+        setTimeout(() => {
+          this.closeModal();
+        }, 3000);
+        }
+      }, error => {
+        console.error('Error submitting user sheet', error);
+      });
+    }
   }
   navigateToCompany(){
     localStorage.clear();
@@ -216,9 +249,11 @@ export class CommonviewComponent {
     localStorage.setItem('selectedItem', JSON.stringify({ item, type }));
     this.router.navigate(['/view'], { queryParams: {  type: type } });
   }
-  navigateToSheet(projectname:string){
-    this.userSheet=true
-    localStorage.setItem('projectname',JSON.stringify(projectname))
+  navigateToSheet(projectname: string) {
+    this.selectedProject = projectname;
+    this.sendUserTimeSheet.patchValue({ projectname: this.selectedProject });
+    this.userSheet = true;
+   
   }
   logoutClick(){
     localStorage.clear();
@@ -232,6 +267,15 @@ export class CommonviewComponent {
 
     this.userhome=!this.userhome;
 
+  }
+  userTimeClick(){
+    this.useryourleave=false;
+    this.userproject=false
+    this.userleave=false;
+
+    this.userhome=false;
+
+    this.userSheetMenu=!this.userSheetMenu
   }
   userprojectClick(){
     this.useryourleave=false;
