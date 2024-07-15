@@ -138,4 +138,27 @@ export class CompanyService {
   rPass(userData:any):Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/sendMail`, userData);
   }
+
+  //----------------------time sheet--------------------\\
+
+  sendUserSheet(sheetData:any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/usertimesheet`, sheetData)
+  }
+
+  getUserSheet(username:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/mytimesheet`, username)
+  }
+
+  sendManagerSheet(sheetData:any):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/usertimesheet`, sheetData)
+  }
+
+  getManagerSheet(managername:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/myowntimesheet`, managername)
+  }
+
+  getAllUserSheet():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/allusertimesheet`)
+  }
+
 }

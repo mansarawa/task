@@ -1,0 +1,27 @@
+import {DataTypes, Sequelize} from 'sequelize'
+
+export const createUserTimeSchema=async(Sequelize)=>{
+    const uTimeSheet=await Sequelize.define('userSheet',{
+        username:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        projectname:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        title:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        desc:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        timetake:{
+            type:DataTypes.FLOAT,
+            // allowNull:false
+        }
+    })
+    return uTimeSheet
+}

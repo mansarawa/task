@@ -4,11 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViewComponent } from '../view/view.component';
-
+import { DataTablesModule } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import * as $ from 'jquery';
+import 'datatables.net';
+import DataTables, { Config } from 'datatables.net';
 @Component({
   selector: 'app-company',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterModule,CommonModule],
+  imports: [ReactiveFormsModule,RouterModule,CommonModule,DataTablesModule],
   templateUrl: './company.component.html',
   styleUrl: './company.component.css'
 })
@@ -26,26 +30,35 @@ export class CompanyComponent  implements OnInit {
    allusers=false;
   leave=false;
   project=false;
-
+  dtOptions: Config = {}; 
+  dtTrigger: Subject<any> = new Subject();
   manager:string="manager"
   createproject:string="createproject"
   constructor( private companyService: CompanyService,private router:Router){}
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      processing: true
+    };
     this.companyService.getAdmins().subscribe(
       data =>{ this.admins = data.admin
         console.log(this.admins)
+        this.dtTrigger.next(null);
       },
       error => console.error('Error fetching admins', error)
     );
     this.companyService.getMangers().subscribe(
       data =>{ this.managers = data.manager
+        this.dtTrigger.next(null);
         console.log(this.managers)
       },
       error => console.error('Error fetching admins', error)
     );
     this.companyService.getProject().subscribe(
       data =>{ this.getproject = data.projects
+      
         console.log("projects"+this.getproject)
       },
       error => console.error('Error fetching admins', error)
@@ -53,6 +66,7 @@ export class CompanyComponent  implements OnInit {
     this.companyService.getUsers().subscribe(
       data =>{ this.users = data.user
         console.log(this.users)
+          this.dtTrigger.next(null);
       },
       error => console.error('Error fetching admins', error)
     );
@@ -62,6 +76,9 @@ export class CompanyComponent  implements OnInit {
       },
       error => console.error('Error fetching admins', error)
     );
+  }
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
   }
 
   deleteAdmin(id:any) {

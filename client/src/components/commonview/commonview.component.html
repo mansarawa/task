@@ -4,6 +4,7 @@
       <nav>
         <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
         <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
+        <li><button type="button" (click)="employeeClick()" [ngStyle]="{'color': employee ? '#cb3cff' : 'white'}">Employee</button></li>
         <li><button type="button" (click)="yourleaveClick()" [ngStyle]="{'color': yourleave ? '#cb3cff' : 'white'}">Your Leave</button></li>
         <li><button type="button" (click)="leaveClick()" [ngStyle]="{'color': leave ? '#cb3cff' : 'white'}"> Leave</button></li>
         <li><button type="button" (click)="logoutClick()">Logout</button></li>
@@ -34,19 +35,19 @@
           <label>Password: </label>
           <label >{{manager.password}}</label>
         </div>
-        <div>
+        <!-- <div>
             <label>Users:</label>
             <div *ngFor="let user of result"> 
               <label *ngIf="user.managerName === manager.name" >
                 <span>{{user.name}}</span>
               </label>
              </div>
-          </div>
+          </div> -->
           
-          <div class="btndiv">
+          <section class="btndiv">
         <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
         <button name="submit" class="btn" (click)="navigateToView(manager,'manager')">Update</button>
-    </div>
+    </section>
     
   </div>
   <div class="leave" *ngIf="project">
@@ -88,7 +89,48 @@
       </table>
     </div>
     </div>
-  
+    <div class="leave" *ngIf="employee">
+      <div class="items">
+        <h1>
+          <label>Employees's</label>
+        </h1>
+        
+        <table  border="1">
+          <thead>
+            <tr class="row">
+              <th>ID</th>
+              <th>Employee Name</th>
+            
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row" *ngFor="let user of result">
+              <td> <label *ngIf="user.managerName === manager.name" >
+                <span>{{user.id}}</span>
+              </label></td>
+              <td>  <label *ngIf="user.managerName === manager.name" >
+                <span>{{user.name}}</span>
+              </label></td>
+              
+              <td class="action">
+                
+    
+                <div *ngIf="user.managerName === manager.name"  >
+                  <button type="button" class="view"  (click)="navigateToUserView(user, 'user')"
+                  
+                  >View</button>
+                  
+                </div>
+    
+                
+    
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
   <div class="leave" *ngIf="leave">
     <div class="items">
       <h1>
@@ -187,6 +229,7 @@
       <nav>
         <li><button type="button" (click)="userhomeClick()">Home</button></li>
         <li><button type="button" (click)="userprojectClick()">Projects</button></li>
+        
         <li><button type="button" (click)="useryourleaveClick()">Your Leave</button></li>
        
         <li><button type="button" (click)="logoutClick()">Logout</button></li>
@@ -215,9 +258,10 @@
         <label>Manager Name:</label>
         <label > {{user.managerName}}</label>
       </div>
-      
+      <section class="btndiv">
       <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
       <button name="submit" class="btn" (click)="navigateToView(user,'user')">Update</button>
+      </section>
     </div>
       <div class="yourleave" *ngIf="useryourleave">
         <div class="available">
@@ -266,13 +310,13 @@
         <div class="leave" *ngIf="userproject">
           <div class="items">
             <h1>
-              <label>Project's</label>
+              Project's
             </h1>
             
             <table  border="1">
               <thead>
                 <tr>
-              
+                  
                   <th>Project Name</th>
                  
                   <th>Action</th>
@@ -280,11 +324,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let project of userProjects">
-                
+                  
                   <td>{{ project }}</td>
-                  <td><button class="btn">Submit TimeSheet</button></td>
-                  <td class="action">        
-                  </td>
+                  <td><button class="btn" (click)="navigateToSheet(project)">Submit TimeSheet</button></td>
+                  
                 </tr>
               </tbody>
             </table>
@@ -293,4 +336,13 @@
         </div>
 
   </div> 
-   
+   <div class="usersheet" *ngIf="userSheet">
+    <form [formGroup]="sendUserTimeSheet" (ngSubmit)="usetTimeSubmit()">
+      <input type="text" [placeholder]="user.name" [disabled]="isDisable">
+      <!-- <input type="text" [placeholder]="projetData" [disabled]="isDisable"> -->
+      <input type="text" name="" id="" formControlName="title">
+      <input type="text" name="" id="" formControlName="desc">
+      <input type="number" name="" id="" formControlName="timetaken">
+      <button type="submit">Send</button>
+    </form>
+   </div>

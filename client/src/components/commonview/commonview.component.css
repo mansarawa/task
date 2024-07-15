@@ -93,7 +93,7 @@ button:hover{
     color: white;
     cursor: pointer;
     margin-top: 20px;
-  
+    margin-left: 5%;
     padding: 10px;
     border-radius: 5px;
 }
@@ -105,11 +105,12 @@ button:hover{
   .btndiv{
     align-items: center;
     justify-content: space-around;
+    border: none;
     flex-direction: row;
- 
+    margin-bottom: 5%;
     display: flex;
-     max-width: 25%;
-    margin-left: 15%;
+     width: 80%;
+    
   }
 .leave{
   margin-top: 10%;
@@ -121,24 +122,43 @@ button:hover{
   margin-left: 20%;
   box-shadow: 10px 10px 10px#cb3cff;
 }
+
 .leave table{
 border: none;
   width: 100%;
-  
+  border-collapse: collapse;
   color: white;
   padding: 5%;
 }
+table tr{
+  margin-top: 10%;
+}
+
 .items table tr th{
   border: none;
 }
 .items table tbody tr td{
   border: none;
+  padding: 10px;
+}
+.row{
+  margin-top: 20px;
 }
 .action{
+ 
+  width:auto;
   background-color: #0b1739;
 }
+.view{
+  padding: 5%;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #cb3cff;
+}
 .grant{
-  padding: 2%;
+  padding: 10px;
   border: none;
   color: white;
   border-radius: 5px;
@@ -174,7 +194,9 @@ border: none;
 }
 .available table tbody tr td{
   border: none;
+  padding: 10px;
 }
+
 .yourleave{
   border-left: 1px solid #cb3cff;
   background-color: #081028;
@@ -248,4 +270,8 @@ input {
   margin-top: 10%;
   border-left: 1px solid #cb3cff;
   background-color: #0b1739;
+}
+/* usersheet */
+.usersheet{
+  z-index: 2;
 }

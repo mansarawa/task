@@ -61,8 +61,11 @@
 </div>
 
 <div class="container" *ngIf="type === 'user'">
-  <h1>User</h1>
+ 
   <form [formGroup]="userUpdate" (ngSubmit)="userSubmit()">
+    <div>
+      <h1>User</h1>
+    </div>
     <!-- <div>ID: {{ item.id }}</div> -->
     <div>
       <label>Name:</label> 
@@ -85,8 +88,9 @@
       <input type="text" formControlName="managerName" [disabled]="isDisable" id="managerName">
     </div>
      -->
-    
+    <div class="btndiv">
     <button type="button" class="btn" (click)="navigateToCompany()">Go Back</button>
-    <button type="submit" class="btn">Update</button>
+    <button type="submit" class="btn" *ngIf="!managerIn">Update</button>
+  </div>
     </form>
 </div>

@@ -12,6 +12,7 @@ import { mleave } from './view/leave.js';
 import { uleave } from './view/userleave.js';
 import { getAdminProject, getManagerProject, project } from './view/project.js';
 import { team, userProject } from './view/team.js';
+import { getAllUserTimeSheet, managerTimeSheet, oneManagerTimeSheet, oneUserTimeSheet, userTimeSheet } from './view/timesheet.js';
 
 
 const app=express();
@@ -34,6 +35,8 @@ app.use('/',luser)
 app.use('/',uuser)
 app.use('/',duser)
 app.use('/',guser)
+app.use('/',oneUserTimeSheet)
+app.use('/',userTimeSheet)
 app.use('/',userProject)
 app.use('/',getUserLeave)
 app.use('/',uleave)
@@ -41,6 +44,9 @@ app.use('/',manager)
 app.use('/',lmanager)
 app.use('/',umanager)
 app.use('/',dmanager)
+app.use('/',oneManagerTimeSheet)
+app.use('',getAllUserTimeSheet)
+app.use('/',managerTimeSheet)
 app.use('/',team)
 app.use('/',gmanager)
 app.use('/',project)

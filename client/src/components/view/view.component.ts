@@ -16,6 +16,7 @@ export class ViewComponent implements OnInit {
   type: string = "";
   item: any = {};
   isDisable = true;
+  managerIn=false;
   adminUpdate: FormGroup;
   userUpdate: FormGroup;
   managerUpdate: FormGroup;
@@ -53,7 +54,9 @@ export class ViewComponent implements OnInit {
     password: [this.item.password, Validators.required],
     managerName: [this.item.managerName]  
   });
-
+  if(localStorage.getItem('manager')){
+    this.managerIn=true;
+  }
 
 
   }
@@ -98,6 +101,8 @@ export class ViewComponent implements OnInit {
   }
 
   userSubmit() {
+    if(!localStorage.getItem('manager'))
+    {
     if (this.userUpdate.valid) {
       this.companyService.uUser(this.userUpdate.value).subscribe(
         response => {
@@ -111,6 +116,9 @@ export class ViewComponent implements OnInit {
           console.error('Error:', error);
         }
       );
+    }}
+    else{
+      this.router.navigate(['commonview'], { queryParams: { type: 'manager' } });
     }
   }
 
@@ -138,10 +146,14 @@ export class ViewComponent implements OnInit {
   }
 
   navigateToCompany() {
-
+    if(localStorage.getItem('manager'))
+    {
+      this.router.navigate(['commonview'], { queryParams: { type: 'manager' } });
+    }
+    else{
     localStorage.clear();
     alert("Please Login again")
     this.router.navigate([''])
-   
+    }
   }
 }

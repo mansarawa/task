@@ -19,9 +19,11 @@ export class CommonviewComponent {
   item: any = {};
   uleave:any[]=[];
   name:string='';
+  userSheet=false;
   isDisable=true;
   home=true;
   leave=false;
+  employee=false;
   yourleave=false;
   project=false;
   userhome=true;
@@ -32,15 +34,20 @@ export class CommonviewComponent {
   user:any;
   result:any[]=[];
   applyleave:FormGroup;
+  sendUserTimeSheet:FormGroup;
   userapplyleave:FormGroup;
+  
   managerproject:any[]=[];
   userProjects:any[]=[];
   manageremail: string = '';
   useremail:string='';
   username:string='';
+  projectData:any;
   constructor(private route: ActivatedRoute,private router:Router,private companyService:CompanyService,private fb:FormBuilder) {
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.projectData=JSON.parse(localStorage.getItem('projectname') || '{}');
+    console.log(this.projectData)
     this.manageremail = this.manager.email;
     this.useremail=this.user.email;
     this.username=this.user.name
@@ -48,6 +55,13 @@ export class CommonviewComponent {
        username:[this.manager.name],
        email:[this.manager.email],
       date: ['', Validators.required],
+    })
+    this.sendUserTimeSheet=this.fb.group({
+      projectname:[''],
+      username:[''],
+      title:[''],
+      desc:[''],
+      timetaken:['']
     })
     this.userapplyleave=this.fb.group({
       username:[this.user.name],
@@ -154,6 +168,9 @@ export class CommonviewComponent {
         )
       }
   }
+  usetTimeSubmit(){
+    
+  }
   navigateToCompany(){
     localStorage.clear();
     this.router.navigate([''])
@@ -162,28 +179,46 @@ export class CommonviewComponent {
     this.yourleave=false;
     this.project=false
     this.leave=false;
-
+    this.employee=false;
     this.home=!this.home;
+
+  }
+  employeeClick(){
+    this.yourleave=false;
+    this.project=false
+    this.leave=false;
+    this.employee=!this.employee;
+    this.home=false;
 
   }
   projectClick(){
     this.yourleave=false;
     this.home=false;
-  
+    this.employee=false;
     this.leave=false;
     this.project=!this.project;
   }
   leaveClick(){
     this.yourleave=false;
     this.home=false;
-    this.project=false
+    this.project=false;
+    this.employee=false;
     this.leave=!this.leave;
   }
   yourleaveClick(){
     this.home=false;
     this.leave=false;
     this.project=false;
+    this.employee=false;
     this.yourleave=!this.yourleave;
+  }
+  navigateToUserView(item: any, type: string) {
+    localStorage.setItem('selectedItem', JSON.stringify({ item, type }));
+    this.router.navigate(['/view'], { queryParams: {  type: type } });
+  }
+  navigateToSheet(projectname:string){
+    this.userSheet=true
+    localStorage.setItem('projectname',JSON.stringify(projectname))
   }
   logoutClick(){
     localStorage.clear();
