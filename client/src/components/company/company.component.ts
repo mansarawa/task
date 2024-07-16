@@ -35,8 +35,13 @@ export class CompanyComponent  implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   manager:string="manager"
   createproject:string="createproject"
+  
+  constructor( private companyService: CompanyService,private router:Router){
 
-  constructor( private companyService: CompanyService,private router:Router){}
+    if(!localStorage.getItem('admin') ){
+      this.router.navigate(['/login'], { queryParams: {  name: "company" } });
+    }
+  }
 
   ngOnInit(): void {
     this.dtOptions = {

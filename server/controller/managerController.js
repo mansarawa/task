@@ -84,7 +84,7 @@ const getManagerController = async (req, res) => {
         if (!companyname) {
             console.log("requird")
         }
-        const getManager = await managerModel.findAll({where:{companyname:companyname}});
+        const getManager = await managerModel.findAll();
         console.log(getManager)
         if (getManager) {
             return res.status(200).json({ manager: getManager })
