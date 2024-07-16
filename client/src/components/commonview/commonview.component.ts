@@ -49,11 +49,14 @@ export class CommonviewComponent {
   managerTimeSheet: any[] = [];
   manageremail: string = '';
   useremail: string = '';
+  today:string='';
   username: string = '';
   managername:string='';
   projectTeamStatus: { [key: string]: boolean } = {};
   selectedProject: string | null = null;
   constructor(private route: ActivatedRoute, private router: Router, private companyService: CompanyService, private fb: FormBuilder) {
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().split('T')[0];
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     if(!localStorage.getItem('manager') || !localStorage.getItem('user') ){
       this.router.navigate(['/home']);
@@ -109,7 +112,7 @@ export class CommonviewComponent {
       this.name = name !== null ? name : '';
     });
     this.getManagerProjects();
-    this.companyService.getUsers().subscribe(
+    this.companyService.getUsers(this.manager.companyname).subscribe(
       data => {
         this.result = data.user;
         console.log('Fetched users:', this.result);

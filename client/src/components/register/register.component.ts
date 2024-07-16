@@ -26,13 +26,15 @@ export class RegisterComponent {
   isDisable=true;
   cname:any;
   companyname:string='';
+  today:string='';
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService
   ) {
-   
+    const currentDate = new Date();
+    this.today = currentDate.toISOString().split('T')[0];
     this.cname = JSON.parse(localStorage.getItem('admin') || '{}');
     this.companyname=this.cname.companyname
     console.log(this.cname);
@@ -63,6 +65,7 @@ export class RegisterComponent {
       name: ['', Validators.required],
       salary: ['', Validators.required],
       companyname: [this.cname.companyname],
+      gender: ['',Validators.required],
       // managerId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],

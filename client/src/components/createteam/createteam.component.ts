@@ -49,7 +49,7 @@ export class CreateteamComponent {
         },
         error => console.error('Error fetching project', error)
       );
-      this.companyService.getUsers().subscribe(
+      this.companyService.getUsers(this.manager.companyname).subscribe(
         data =>{ this.users = data.user
           console.log(this.users)
           this.filterUsers(); 

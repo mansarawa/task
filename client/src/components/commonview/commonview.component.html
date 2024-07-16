@@ -188,6 +188,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>TimeTaken</th>
+            <th>Date</th>
            
           </tr>
         </thead>
@@ -199,6 +200,7 @@
             <td>{{info.desc}}</td>
           
             <td>{{info.timetaken}}</td>
+            <td>{{info.createdAt | date: 'yyyy-MM-dd'}}</td>
           </tr>
         </tbody>
       </table>
@@ -242,7 +244,7 @@
               <h1>Apply For Leave</h1>
               <input type="text" [placeholder]="manager.name" [disabled]="isDisable">
               <input type="text" [placeholder]="manager.email" [disabled]="isDisable">
-              <input type="date" formControlName="date">
+              <input type="date" formControlName="date" [min]="today">
               <button type="submit" class="submitbtn">Submit</button>
             </form>
           </div>
@@ -329,7 +331,7 @@
                   <h1>Apply For Leave</h1>
                   <input type="text" [placeholder]="user.name" [disabled]="isDisable">
                   <input type="text" [placeholder]="user.email" [disabled]="isDisable">
-                  <input type="date" formControlName="date">
+                  <input type="date" formControlName="date" [min]="today">
                   <button type="submit" class="submitbtn">Submit</button>
                 </form>
               </div>
@@ -375,7 +377,7 @@
                     <th>Title</th>
                     <th>Description</th>
                     <th>TimeTaken</th>
-                   
+                    <th>Date</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -386,6 +388,7 @@
                     <td>{{info.desc}}</td>
                   
                     <td>{{info.timetaken}}</td>
+                   <td>{{info.createdAt | date: 'yyyy-MM-dd'}}</td>
                   </tr>
                 </tbody>
               </table>

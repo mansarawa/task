@@ -1,14 +1,15 @@
 import { where } from "sequelize";
 import { managerModel, userLeaveModel, userModel } from "../postgres/postgres.js";
+import { Op } from 'sequelize';
 
  const userController=async(req,res)=>{
-    const {name,email,password,salary,mangerId,companyname,managerName}=req.body;
+    const {name,email,password,salary,mangerId,companyname,gender,managerName}=req.body;
     try {
         const existUser=await userModel.findOne({where:{email:email}})
         if(!existUser)
             {                
                 
-                const newUser=await userModel.create({name,companyname,email,password,salary,mangerId,managerName})
+                const newUser=await userModel.create({name,companyname,gender,email,password,salary,mangerId,managerName})
                 return res.status(200).json({message:'user created successfully',User:newUser})
             }
             return res.status(400).json({message:'Already created'})
@@ -84,7 +85,7 @@ const deleteUserController = async (req, res) => {
 const getUserController=async(req,res)=>{
   const {companyname}=req.body;
   try {
-    const getUser=await userModel.findAll({where:{companyname:companyname}});
+    const getUser=await userModel.findAll({where:{companyname: { [Op.iLike]: companyname }}});
     return res.status(200).json({user:getUser})
   } catch (error) {
     console.log(error)

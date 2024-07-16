@@ -134,8 +134,8 @@
       <div *ngIf="userRegister.get('password')?.invalid && userRegister.get('password')?.touched">Password is required</div>
     </div>
     <div class="items">
-      <label for="salary">Salary</label>
-      <input type="text" formControlName="salary" id="salary">
+      <label for="salary">Salary  {{ userRegister.get('salary')?.value | currency :'INR'}}</label>
+      <input type="range" min="10000" max="200000" step="1000" formControlName="salary" id="salary">
       <div *ngIf="userRegister.get('salary')?.invalid && userRegister.get('salary')?.touched">Salary is required</div>
     </div>
     <div class="items">
@@ -145,6 +145,21 @@
         <option *ngFor="let manager of managers" [value]="manager.name">{{ manager.name }}</option>
       </select>
       <div *ngIf="userRegister.get('managerName')?.invalid && userRegister.get('managerName')?.touched">Manager is required</div>
+    </div>
+    <div class="items">
+      <label for="">Gender</label>
+      <div class="radios">
+        <div class="radiositem">
+      <label for="age1">Male</label>
+      <input type="radio" id="gender1" formControlName="gender" name="gender" value="male">
+    </div>
+    <div class="radios">
+    <label for="age2">Female</label>
+    <input type="radio" id="gender2" formControlName="gender" name="gender" value="female">
+   
+
+    </div>
+    </div>
     </div>
     <button type="submit" class="btn">Register</button>
   </form>
@@ -168,7 +183,7 @@
     </div>
     <div class="items">
       <label for="salary">DeadLine</label>
-      <input type="date" formControlName="deadline" id="date">
+      <input type="date" formControlName="deadline" id="date" [min]="today">
       <div *ngIf="userRegister.get('date')?.invalid && userRegister.get('date')?.touched">DeadLine is required</div>
     </div>
     <div class="items">

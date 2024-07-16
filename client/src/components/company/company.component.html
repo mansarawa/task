@@ -53,7 +53,7 @@
       <label for><a [routerLink]="['/register']" [queryParams]="{name: manager}"
           class="btncreate">Create Manager</a></label>
     </h3>
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  *ngIf="managers && managers.length" border="1">
+    <table *ngIf="managers && managers.length" border="1">
       <thead>
         <tr>
           <th>ID</th>
@@ -87,7 +87,7 @@
       <label for><a [routerLink]="['/register']" [queryParams]="{name: user}"
           class="btncreate">Create User</a></label>
     </h3>
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  *ngIf="users && users.length" border="1">
+    <table   *ngIf="users && users.length" border="1">
       <thead>
         <tr>
           <th>ID</th>
@@ -169,7 +169,7 @@
     <label for><a [routerLink]="['/register']" [queryParams]="{name: createproject}"
         class="btncreate">Create Project</a></label>
   </h3>
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" *ngIf="managers && managers.length" border="1">
+  <table *ngIf="managers && managers.length" border="1">
     <thead>
       <tr>
         <th>ID</th>

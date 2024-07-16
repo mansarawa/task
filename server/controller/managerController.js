@@ -80,11 +80,12 @@ const deleteManagerController = async (req, res) => {
 }
 const getManagerController = async (req, res) => {
     const { companyname } = req.body;
+    console.log("cname"+companyname)
     try {
         if (!companyname) {
             console.log("requird")
         }
-        const getManager = await managerModel.findAll();
+        const getManager = await managerModel.findAll({where:{companyname:companyname}});
         console.log(getManager)
         if (getManager) {
             return res.status(200).json({ manager: getManager })

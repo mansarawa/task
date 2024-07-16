@@ -36,6 +36,10 @@ export const createUserModel=async(sequelize)=>{
         {
             type:DataTypes.STRING,
             allowNull:false
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     },)
     return userSchema

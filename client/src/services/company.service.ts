@@ -119,9 +119,9 @@ export class CompanyService {
     const headers=new HttpHeaders({'Content-Type':'application/json'})
     return this.http.put<any>(`${this.apiUrl}/updateuser`,user,{headers})
   }
-  getUsers(): Observable<any> {
+  getUsers(companyname:string): Observable<any> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<any>(`${this.apiUrl}/getuser`);
+    return this.http.post<any>(`${this.apiUrl}/getuser`,{companyname});
   }
    getUserProjects(username: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

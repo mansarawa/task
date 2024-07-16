@@ -62,3 +62,15 @@
     margin-top: 15px;
     cursor: pointer;
 }
+.radios{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.radiositem{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

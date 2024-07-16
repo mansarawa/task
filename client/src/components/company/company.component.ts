@@ -31,8 +31,7 @@ export class CompanyComponent  implements OnInit {
    allusers=false;
   leave=false;
   project=false;
-  dtOptions: Config = {}; 
-  dtTrigger: Subject<any> = new Subject();
+  
   manager:string="manager"
   createproject:string="createproject"
   
@@ -44,24 +43,21 @@ export class CompanyComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      processing: true
-    };
+    
     const storedAdmin = localStorage.getItem('admin');
     const adminData = storedAdmin ? JSON.parse(storedAdmin) : [];
-    const companyName = adminData.companyname;
-    this.companyService.getAdmins(companyName).subscribe(
+    const companyname = adminData.companyname;
+    console.log(companyname)
+    this.companyService.getAdmins(companyname).subscribe(
       data =>{ this.admins = data.admin
         console.log(this.admins)
-        this.dtTrigger.next(null);
+      
       },
       error => console.error('Error fetching admins', error)
     );
-    this.companyService.getMangers(companyName).subscribe(
+    this.companyService.getMangers(companyname).subscribe(
       data =>{ this.managers = data.manager
-        this.dtTrigger.next(null);
+        
         console.log(this.managers)
       },
       error => console.error('Error fetching admins', error)
@@ -73,10 +69,10 @@ export class CompanyComponent  implements OnInit {
       },
       error => console.error('Error fetching admins', error)
     );
-    this.companyService.getUsers().subscribe(
+    this.companyService.getUsers(companyname).subscribe(
       data =>{ this.users = data.user
-        console.log(this.users)
-          this.dtTrigger.next(null);
+        console.log("users"+this.users)
+          
       },
       error => console.error('Error fetching admins', error)
     );
@@ -87,9 +83,7 @@ export class CompanyComponent  implements OnInit {
       error => console.error('Error fetching admins', error)
     );
   }
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
+  
 
   deleteAdmin(id:any) {
     this.companyService.dAdmin(id).subscribe(
