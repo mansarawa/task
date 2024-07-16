@@ -55,6 +55,7 @@ export class CommonviewComponent {
   selectedProject: string | null = null;
   constructor(private route: ActivatedRoute, private router: Router, private companyService: CompanyService, private fb: FormBuilder) {
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
+    
     this.managername=this.manager.name;
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
 

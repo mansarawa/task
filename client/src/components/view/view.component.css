@@ -1,7 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
-    height: 95vh;
+    height: 100%;
     text-align: center;
     color: #cb3cff;
     background-color: #081028;
@@ -30,11 +30,12 @@ div h1{
   color: white;
 }
 .btndiv{
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: row;
   display: flex;
-   width: 80%;
+  align-items: center;
+  background-color: red;
+  justify-content: space-around;
+  
+   width: 100%;
   /* margin-left: 15%; */
 }
 .container form{

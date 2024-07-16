@@ -14,7 +14,7 @@
   <div class="items" *ngIf="home">
     <h3>
       <label >Admin in Your Company </label>
-      <label ><a [routerLink]="['/register']" [queryParams]="{name: company}"
+      <label ><a [routerLink]="['/register']" [queryParams]="{name: createadmin}"
           class="btncreate">Create Admin</a></label>
     </h3>
     <table *ngIf="admins && admins.length" border="1">

@@ -16,7 +16,7 @@ const dmanager=express.Router();
 dmanager.delete('/deletemanager',deleteManagerController)
 
 const gmanager=express.Router();
-gmanager.get('/getmanager',getManagerController)
+gmanager.post('/getmanager',getManagerController)
 
 const getManagerLeave=express.Router();
 getManagerLeave.post('/getmanagerleavebyemail',getManagerLeaveController)

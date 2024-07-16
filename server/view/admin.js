@@ -19,7 +19,7 @@ const dadmin=express.Router();
 dadmin.delete('/deleteadmin',deleteAdminController)
 
 const gadmin=express.Router();
-gadmin.get('/getadmin',getAdminController)
+gadmin.post('/getadmin',getAdminController)
 
 const leavemanager=express.Router();
  leavemanager.get('/getmangerleave',getMangerLeaveController)

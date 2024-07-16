@@ -20,22 +20,33 @@ export class RegisterComponent {
   managerRegister: FormGroup;
   userRegister: FormGroup;
   createProject:FormGroup;
+  companyRegister:FormGroup;
   company: string = 'company'
   managers: any[] = [];
   isDisable=true;
   cname:any;
-  
+  companyname:string='';
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService
   ) {
+   
     this.cname = JSON.parse(localStorage.getItem('admin') || '{}');
+    this.companyname=this.cname.companyname
     console.log(this.cname);
-    this.adminRegister = this.fb.group({
+    this.companyRegister = this.fb.group({
       adminname: ['', Validators.required],
       companyname: ['', Validators.required],
+      address: ['', Validators.required],
+      gst: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+    this.adminRegister = this.fb.group({
+      adminname: ['', Validators.required],
+      companyname: [this.cname.companyname, Validators.required],
       address: ['', Validators.required],
       gst: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -66,6 +77,25 @@ export class RegisterComponent {
     });
   }
 
+  companySubmit() {
+    if (this.companyRegister.valid) {
+      console.log("first")
+      this.companyService.createAdmin(this.companyRegister.value).subscribe(
+        response => {
+          console.log('Form Submitted', response);
+          localStorage.removeItem('user');
+          localStorage.removeItem('manager');
+          localStorage.setItem('admin', JSON.stringify(response.data))
+          console.log(response.data)
+          this.router.navigate(['company'])
+          this.adminRegister.reset();
+        },
+        error => {
+          console.error('Error:', error);
+        }
+      );
+    }
+  }
   adminSubmit() {
     if (this.adminRegister.valid) {
       console.log("first")
@@ -160,7 +190,7 @@ export class RegisterComponent {
       const name = params['name'];
       this.name = name !== null ? name : '';
     });
-    this.companyService.getMangers().subscribe(
+    this.companyService.getMangers(this.cname.companyname).subscribe(
       data => {
         this.managers = data.manager
         console.log(this.managers)

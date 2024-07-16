@@ -13,12 +13,14 @@
     align-items: center;
 }
 .item ul li{
+    margin-top: 1%;
     list-style-type: none;
     margin-right: 20px;
     font-size: 20px;
 }
 .item ul li a{
-    color: white;
+   
+    color: #cb3cff;
     text-decoration: none;
     
 }

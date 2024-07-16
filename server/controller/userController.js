@@ -82,8 +82,13 @@ const deleteUserController = async (req, res) => {
 
 
 const getUserController=async(req,res)=>{
-    const getUser=await userModel.findAll();
+  const {companyname}=req.body;
+  try {
+    const getUser=await userModel.findAll({where:{companyname:companyname}});
     return res.status(200).json({user:getUser})
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const getUserLeaveController = async (req, res) => {

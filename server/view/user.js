@@ -20,7 +20,7 @@ const duser=express.Router();
 duser.delete('/deleteuser',deleteUserController)
 
 const guser=express.Router();
-guser.get('/getuser',getUserController)
+guser.post('/getuser',getUserController)
 
 const getUserLeave=express.Router();
 getUserLeave.post('/getuserleavebyemail',getUserLeaveController)

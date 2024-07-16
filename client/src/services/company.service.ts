@@ -23,9 +23,9 @@ export class CompanyService {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/adminlogin`, adminData);
   }
-  getAdmins(): Observable<any> {
+  getAdmins(companyname: string): Observable<any> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<any>(`${this.apiUrl}/getadmin`);
+    return this.http.post<any>(`${this.apiUrl}/getadmin`,{companyname});
   }
   getProject(): Observable<any> {
    
@@ -61,9 +61,9 @@ export class CompanyService {
     
     return this.http.delete<any>(`${this.apiUrl}/deleteadmin`,{body:{id:id}})
   }
-  getMangers(): Observable<any> {
+  getMangers(companyname:string): Observable<any> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<any>(`${this.apiUrl}/getmanager`);
+    return this.http.post<any>(`${this.apiUrl}/getmanager`,{companyname});
   }
   lManager(managerData:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -24,6 +24,7 @@ export class CompanyComponent  implements OnInit {
   users:any[]=[];
   user:string="user"
   company:string="company"
+  createadmin="createadmin"
   home=true;
   alladmins=false;
    allmanagers=false;
@@ -34,6 +35,7 @@ export class CompanyComponent  implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   manager:string="manager"
   createproject:string="createproject"
+
   constructor( private companyService: CompanyService,private router:Router){}
 
   ngOnInit(): void {
@@ -42,14 +44,17 @@ export class CompanyComponent  implements OnInit {
       pageLength: 10,
       processing: true
     };
-    this.companyService.getAdmins().subscribe(
+    const storedAdmin = localStorage.getItem('admin');
+    const adminData = storedAdmin ? JSON.parse(storedAdmin) : [];
+    const companyName = adminData.companyname;
+    this.companyService.getAdmins(companyName).subscribe(
       data =>{ this.admins = data.admin
         console.log(this.admins)
         this.dtTrigger.next(null);
       },
       error => console.error('Error fetching admins', error)
     );
-    this.companyService.getMangers().subscribe(
+    this.companyService.getMangers(companyName).subscribe(
       data =>{ this.managers = data.manager
         this.dtTrigger.next(null);
         console.log(this.managers)

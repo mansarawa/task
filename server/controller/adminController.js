@@ -11,7 +11,7 @@ const adminController = async (req, res) => {
         return res.status(201).json({ messsage: 'already added ' })
         console.log("start")
     } catch (error) {
-
+        console.log(error)
     }
 }
 
@@ -70,8 +70,25 @@ const deleteAdminController = async (req, res) => {
     }
 }
 const getAdminController = async (req, res) => {
-    const getAdmin = await adminModel.findAll();
+    const {companyname}=req.body
+    try {
+        
+    
+    if(!companyname){
+        console.log("requird")
+    }
+    const getAdmin = await adminModel.findAll({where:{companyname:companyname}});
+    console.log(getAdmin)
+    if(getAdmin){
     return res.status(200).json({ admin: getAdmin })
+    }
+    else{
+        return res.status(400).json({message:"not found"})
+    }
+} catch (error) {
+    console.log(error)
+}
+
 }
 
 const getMangerLeaveController = async (req, res) => {
