@@ -1,7 +1,7 @@
 import { adminModel, mleaveModel } from "../postgres/postgres.js";
 import jwt from 'jsonwebtoken'
 const adminController = async (req, res) => {
-    const { adminname, companyname, address, gst, email, role, password } = req.body;
+    const { adminname, companyname, address, gst, email,gender, role, password } = req.body;
     try {
         const existAdmin = await adminModel.findOne({ where: { email: email } })
         if (!existAdmin) {

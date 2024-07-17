@@ -32,6 +32,7 @@ export class CommonviewComponent {
   useryourleave = false;
   userproject = false;
   userSheetMenu = false;
+  manageruserSheetMenu = false;
   managerSheetMenu = false;
   checkTeam = false;
   managerSheet = false;
@@ -46,11 +47,13 @@ export class CommonviewComponent {
   managerproject: any[] = [];
   userProjects: any[] = [];
   userTimeSheet: any[] = [];
+  usersTimeSheet:any[]=[];
   managerTimeSheet: any[] = [];
   manageremail: string = '';
   useremail: string = '';
   today:string='';
   username: string = '';
+  usermanager:string='';
   managername:string='';
   projectTeamStatus: { [key: string]: boolean } = {};
   selectedProject: string | null = null;
@@ -59,7 +62,7 @@ export class CommonviewComponent {
     this.today = currentDate.toISOString().split('T')[0];
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     if(!localStorage.getItem('manager') || !localStorage.getItem('user') ){
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
     }
     
     this.managername=this.manager.name;
@@ -67,7 +70,9 @@ export class CommonviewComponent {
 
     this.manageremail = this.manager.email;
     this.useremail = this.user.email;
-    this.username = this.user.name
+    this.username = this.user.name;
+    this.usermanager=this.user.managerName;
+    console.log("mname"+this.user.managerName)
     this.applyleave = this.fb.group({
       username: [this.manager.name],
       email: [this.manager.email],
@@ -76,6 +81,7 @@ export class CommonviewComponent {
     this.sendUserTimeSheet = this.fb.group({
       projectname: [this.selectedProject, Validators.required],
       username: [this.user.name],
+      managername:[this.usermanager],
       title: ['', Validators.required],
       desc: ['', Validators.required],
       timetaken: ['', Validators.required]
@@ -83,6 +89,7 @@ export class CommonviewComponent {
     this.sendManagerTimeSheet = this.fb.group({
       projectname: [this.selectedProject, Validators.required],
       managername: [this.manager.name],
+      companyname:[this.manager.companyname],
       title: ['', Validators.required],
       desc: ['', Validators.required],
       timetaken: ['', Validators.required]
@@ -107,6 +114,7 @@ export class CommonviewComponent {
     }
   }
   async ngOnInit() {
+    this.manager = JSON.parse(localStorage.getItem('manager') || '{}');
     this.route.queryParams.subscribe(params => {
       const name = params['type'];
       this.name = name !== null ? name : '';
@@ -165,6 +173,12 @@ export class CommonviewComponent {
       error => console.error('Error fetching user projects', error)
     );
 
+    this.companyService.getMyUserSheet(this.managername).subscribe(
+      data => {
+        this.usersTimeSheet = data.sheet;
+      },
+      error => console.error('Error fetching user projects', error)
+    );
   }
   checkTeamStatus(projectname: string): void {
     this.companyService.checkTeam(projectname).subscribe(
@@ -289,49 +303,64 @@ export class CommonviewComponent {
     this.project = false
     this.leave = false;
     this.employee = false;
-    this.home = !this.home;
+    this.home = true;
+    this.manageruserSheetMenu=false;
 
   }
   employeeClick() {
     this.managerSheetMenu = false;
     this.yourleave = false;
     this.project = false
+    this.manageruserSheetMenu=false;
     this.leave = false;
-    this.employee = !this.employee;
+    this.employee = true;
     this.home = false;
 
   }
   projectClick() {
     this.managerSheetMenu = false;
     this.yourleave = false;
+    this.manageruserSheetMenu=false;
     this.home = false;
     this.employee = false;
     this.leave = false;
-    this.project = !this.project;
+    this.project = true;
   }
   leaveClick() {
     this.managerSheetMenu = false;
     this.yourleave = false;
+    this.manageruserSheetMenu=false;
     this.home = false;
     this.project = false;
     this.employee = false;
-    this.leave = !this.leave;
+    this.leave = true;
   }
   yourleaveClick() {
     this.home = false;
     this.leave = false;
     this.project = false;
+    this.manageruserSheetMenu=false;
     this.employee = false;
     this.managerSheetMenu = false;
-    this.yourleave = !this.yourleave;
+    this.yourleave = true;
   }
   managerSheetClick() {
     this.home = false;
     this.leave = false;
     this.project = false;
     this.employee = false;
+    this.manageruserSheetMenu=false;
     this.yourleave = false;
-    this.managerSheetMenu = true
+    this.managerSheetMenu = true;
+  }
+  manageruserSheetClick(){
+    this.home = false;
+    this.leave = false;
+    this.project = false;
+    this.employee = false;
+    this.yourleave = false;
+    this.managerSheetMenu = false;
+    this.manageruserSheetMenu=true;
   }
   navigateToUserView(item: any, type: string) {
     localStorage.setItem('selectedItem', JSON.stringify({ item, type }));

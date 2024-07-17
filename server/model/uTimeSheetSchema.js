@@ -21,6 +21,10 @@ export const createUserTimeSchema=async(Sequelize)=>{
         timetaken:{
             type:DataTypes.FLOAT,
             allowNull:false
+        },
+        managername:{
+            type:DataTypes.STRING,
+            allowNull:false
         }
     })
     return uTimeSheet

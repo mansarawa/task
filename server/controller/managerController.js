@@ -2,13 +2,13 @@ import { managerModel, mleaveModel } from "../postgres/postgres.js";
 import { userLeaveModel } from "../postgres/postgres.js";
 import bcrypt from 'bcrypt'
 const managerController = async (req, res) => {
-    const { name, email, password, role, companyname } = req.body;
+    const { name, email, password, role, companyname,gender } = req.body;
     try {
         const existManager = await managerModel.findOne({ where: { email: email } });
         if (!existManager) {
             const saltRound = 10;
 
-            const newManager = await managerModel.create({ name, companyname, email, password: password, role });
+            const newManager = await managerModel.create({ name, companyname, email, password: password, role,gender });
             return res.status(200).json({ message: "Manager Created Successfully", manager: newManager });
         }
         return res.status(200).json({ message: "Manager Already Exists" });
@@ -27,7 +27,7 @@ const lmanagerController = async (req, res) => {
 
             if (findManager.password == password) {
 
-                return res.status(200).json({ message: "Manager login", manager: findManager, plainPassword: password, success: true });
+                return res.status(200).json({ message: "Manager login", manager: findManager, success: true });
             } else {
                 return res.status(401).json({ message: "Invalid password", success: false });
             }

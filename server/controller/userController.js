@@ -44,10 +44,10 @@ const updateUserController=async(req,res)=>{
         return res.status(400).json({ message: "Invalid ID format", success: false });
     }
     try {
-        const existUser=await userModel.findOne({where:{email:email}})
+        const existUser=await userModel.findOne({ where: { id: id } })
         if(existUser)
             {
-                const updateUser=await userModel.update({name,email,password,salary,mangerId},{where:{id:id}})
+                const updateUser=await userModel.update({name,email,password,salary},{where:{id:id}})
                 return res.status(200).json({message:'user updated successfully',User:updateUser})
             }
             return res.status(400).json({message:'dont updated'})

@@ -22,6 +22,8 @@ export class CompanyComponent  implements OnInit {
   managers:any[]=[];
   getproject:any[]=[];
   users:any[]=[];
+  managersheet:any[]=[]
+  timesheet=false;
   user:string="user"
   company:string="company"
   createadmin="createadmin"
@@ -79,6 +81,12 @@ export class CompanyComponent  implements OnInit {
     this.companyService.getManagerLeave().subscribe(
       data =>{ this.mleave = data.managerLeave
         console.log(this.mleave)
+      },
+      error => console.error('Error fetching admins', error)
+    );
+    this.companyService.getAdminManagerSheet(companyname).subscribe(
+      data =>{ this.managersheet = data.managerSheets
+        console.log(this.managersheet)
       },
       error => console.error('Error fetching admins', error)
     );
@@ -168,8 +176,9 @@ export class CompanyComponent  implements OnInit {
     this.allusers=false;
     this.project=false
     this.leave=false;
+    this.timesheet=false;
 
-    this.home=!this.home;
+    this.home=true;
 
   }
   managerClick(){
@@ -178,7 +187,8 @@ export class CompanyComponent  implements OnInit {
     this.allusers=false;
     this.project=false
     this.leave=false;
-    this.allmanagers=!this.allmanagers;
+    this.timesheet=false;
+    this.allmanagers=true;
   }
   userClick(){
     this.alladmins=true;
@@ -186,16 +196,26 @@ export class CompanyComponent  implements OnInit {
     this.allmanagers=false;
     this.project=false
     this.leave=false;
-    this.allusers=!this.allusers;
+    this.timesheet=false;
+    this.allusers=true;
   }
   projectClick(){
     this.alladmins=false;
     this.allmanagers=false;
     this.allusers=false;
     this.home=false;
-  
+    this.timesheet=false;
     this.leave=false;
-    this.project=!this.project;
+    this.project=true;
+  }
+  timeSheet(){
+    this.alladmins=false;
+    this.allmanagers=false;
+    this.allusers=false;
+    this.home=false;
+    this.timesheet=true;
+    this.leave=false;
+    this.project=false;
   }
   leaveClick(){
     this.alladmins=false;

@@ -32,8 +32,20 @@
           <input type="password" name="" formControlName="password" id="">
           <div *ngIf="adminRegister.get('password')?.invalid && adminRegister.get('password')?.touched">Password is required</div>
       </div>
-     
-      <button type="submit" class="btn">Register</button><br>
+      <div class="items">
+        <label for="">Gender</label>
+        <div class="radios">
+          <div class="radiositem">
+        <label for="age1">Male</label>
+        <input type="radio" id="gender1" formControlName="gender" name="gender" value="male">
+      </div>
+      <div class="radiositem">
+      <label for="age2">Female</label>
+      <input type="radio" id="gender2" formControlName="gender" name="gender" value="female">
+      </div>
+      </div>
+      </div>
+      <button type="submit" class="btn">Create</button><br>
       <!-- <a [routerLink]="['/login']" [queryParams]="{name:company}" class="account">Already Have Account ?</a> -->
       <a [routerLink]="['/login']" [queryParams]="{name: company}" class="account">Already Have Account ?</a>
   </form>
@@ -45,22 +57,22 @@
     
   <form [formGroup]="adminRegister" (ngSubmit)="adminSubmit()">
       <h1>Create Admin</h1>
-      <div class="items">
+      <!-- <div class="items">
         <label for="Text">Company Name</label>
         <input type="text" name="" [placeholder]="companyname" [disabled]="isDisable" id="">
         <div *ngIf="adminRegister.get('companyname')?.invalid && adminRegister.get('companyname')?.touched">Name is required</div>
+    </div> -->
+    
+    <div class="items">
+      <label for="adminname">Admin Name</label>
+      <input type="text" name="" formControlName="adminname" id="">
+      <div *ngIf="adminRegister.get('adminname')?.invalid && adminRegister.get('adminname')?.touched">Admin Name is required</div>
     </div>
     <div class="items">
       <label for="address">Address</label>
       <input type="text" name="" formControlName="address" id="">
       <div *ngIf="adminRegister.get('address')?.invalid && adminRegister.get('address')?.touched">Address is required</div>
   </div>
-  
-  <div class="items">
-    <label for="adminname">Admin Name</label>
-    <input type="text" name="" formControlName="adminname" id="">
-    <div *ngIf="adminRegister.get('adminname')?.invalid && adminRegister.get('adminname')?.touched">Admin Name is required</div>
-</div>
       <div class="items">
           <label for="email">Email</label>
           <input type="email" name="" formControlName="email" id="">
@@ -71,8 +83,20 @@
           <input type="password" name="" formControlName="password" id="">
           <div *ngIf="adminRegister.get('password')?.invalid && adminRegister.get('password')?.touched">Password is required</div>
       </div>
-     
-      <button type="submit" class="btn">Register</button><br>
+      <div class="items">
+        <label for="">Gender</label>
+        <div class="radios">
+          <div class="radiositem">
+        <label for="age1">Male</label>
+        <input type="radio" id="gender1" formControlName="gender" name="gender" value="male">
+      </div>
+      <div class="radiositem">
+      <label for="age2">Female</label>
+      <input type="radio" id="gender2" formControlName="gender" name="gender" value="female">
+      </div>
+      </div>
+      </div>
+      <button type="submit" class="btn">Create</button><br>
       <!-- <a [routerLink]="['/login']" [queryParams]="{name:company}" class="account">Already Have Account ?</a> -->
       <a [routerLink]="['/login']" [queryParams]="{name: company}" class="account">Already Have Account ?</a>
   </form>
@@ -83,11 +107,11 @@
   
   <form [formGroup]="managerRegister" (ngSubmit)="managerSubmit()">
       <h1>Create Manager</h1>
-      <div class="items">
+      <!-- <div class="items">
         <label for="Text">Company Name</label>
         <input type="text" name="" [placeholder]="cname.companyname" [disabled]="isDisable" id="">
         
-    </div>
+    </div> -->
       <div class="items">
         <label for="email">Name:</label>
         <input type="text" name="" formControlName="name" id="">
@@ -104,8 +128,20 @@
           <input type="password" name="" formControlName="password" id="">
           <div *ngIf="managerRegister.get('password')?.invalid && managerRegister.get('password')?.touched">Password is required</div>
       </div>
-     
-      <button type="submit" class="btn">Register</button><br>
+      <div class="items">
+        <label for="">Gender</label>
+        <div class="radios">
+          <div class="radiositem">
+        <label for="age1">Male</label>
+        <input type="radio" id="gender1" formControlName="gender" name="gender" value="male">
+      </div>
+      <div class="radiositem">
+      <label for="age2">Female</label>
+      <input type="radio" id="gender2" formControlName="gender" name="gender" value="female">
+      </div>
+      </div>
+      </div>
+      <button type="submit" class="btn">Create</button><br>
       
   </form>
   
@@ -113,11 +149,11 @@
 <div class="container" *ngIf="name === 'user'">
   <form [formGroup]="userRegister" (ngSubmit)="userSubmit()">
     <h1>Create User</h1>
-    <div class="items">
+    <!-- <div class="items">
       <label for="Text">Company Name</label>
       <input type="text" name="" [placeholder]="cname.companyname" [disabled]="isDisable" id="">
       
-  </div>
+  </div> -->
     <div class="items">
       <label for="name">Name</label>
       <input type="text" formControlName="name" id="name">
@@ -153,15 +189,13 @@
       <label for="age1">Male</label>
       <input type="radio" id="gender1" formControlName="gender" name="gender" value="male">
     </div>
-    <div class="radios">
+    <div class="radiositem">
     <label for="age2">Female</label>
     <input type="radio" id="gender2" formControlName="gender" name="gender" value="female">
-   
-
     </div>
     </div>
     </div>
-    <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn">Create</button>
   </form>
   
 </div>

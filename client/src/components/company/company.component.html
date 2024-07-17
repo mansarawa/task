@@ -3,6 +3,7 @@
     <nav>
       <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
       <li><button type="button" (click)="managerClick()" [ngStyle]="{'color': allmanagers ? '#cb3cff' : 'white'}">Manager</button></li>
+      <li><button type="button" (click)="timeSheet()" [ngStyle]="{'color': timesheet ? '#cb3cff' : 'white'}">Time Sheet</button></li>
       <li><button type="button" (click)="userClick()" [ngStyle]="{'color': allusers ? '#cb3cff' : 'white'}">Users</button></li>
       <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
     
@@ -81,6 +82,38 @@
     <p *ngIf="!managers || !managers.length">No managers found.</p>
   </div>
 
+  <div class="home" *ngIf="timesheet">
+    <div class="items">
+    <h3>
+      <label for>Manager's TimeSheet </label>
+      
+    </h3>
+    <table  border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Project Name</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>TimeTaken</th>
+          <th>Date</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of managersheet">
+          <td>{{info.managername}}</td>
+          <td>{{ info.projectname }}</td>
+          <td>{{info.title}}</td>
+          <td>{{info.desc}}</td>
+        
+          <td>{{info.timetaken}}</td>
+          <td>{{info.createdAt | date: 'yyyy-MM-dd'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="!managers || !managers.length">No managers found.</p>
+  </div>
   <div class="items"  *ngIf="allusers">
     <h3>
       <label for>Users in Your Company </label>
@@ -191,6 +224,7 @@
     </tbody>
   </table>
   <p *ngIf="!getproject || !getproject.length">No Project found.</p>
+</div>
 </div>
 </div>
 </div>

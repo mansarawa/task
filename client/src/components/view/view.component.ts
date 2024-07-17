@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -71,9 +71,17 @@ export class ViewComponent implements OnInit {
       this.companyService.uAdmin(formData).subscribe(
         response => {
           console.log('Form Submitted', response);
-          localStorage.setItem('user', JSON.stringify(response.data));
-          console.log(response.data);
-          this.router.navigate(['company']);
+          
+          if(localStorage.getItem('admin')){
+            
+            console.log("admin in")
+            this.router.navigate(['company']);
+          }
+          else{
+          this.navigateToCompany();
+          }
+          console.log(response.admin);
+          
           this.adminUpdate.reset();
         },
         error => {
@@ -87,10 +95,16 @@ export class ViewComponent implements OnInit {
     if (this.managerUpdate.valid) {
       this.companyService.uManager(this.managerUpdate.value).subscribe(
         response => {
-          console.log('Form Submitted', response);
-          localStorage.setItem('manager', JSON.stringify(response.data));
-          console.log("data", response.data);
+          console.log('Form Submitted', response.manager);
+      
+          if(localStorage.getItem('manager')){
+            
+            console.log("manager in")
+            this.router.navigate(['commonview'], { queryParams: { type: 'manager' } });
+          }
+          else{
           this.navigateToCompany();
+          }
           this.managerUpdate.reset();
         },
         error => {
@@ -106,10 +120,19 @@ export class ViewComponent implements OnInit {
     if (this.userUpdate.valid) {
       this.companyService.uUser(this.userUpdate.value).subscribe(
         response => {
-          console.log('Form Submitted', response);
-          localStorage.setItem('user', JSON.stringify(response.data));
-          console.log(response.data);
+          console.log('Form Submitted', response.User);
+          
+          if(localStorage.getItem('user')){
+            
+            console.log("user in")
+            this.router.navigate(['commonview'], { queryParams: { type: 'user' } });
+          }
+          else if(localStorage.getItem('admin')){
+            this.router.navigate(['company']);
+          }
+          else{
           this.navigateToCompany();
+          }
           this.userUpdate.reset();
         },
         error => {
@@ -150,10 +173,11 @@ export class ViewComponent implements OnInit {
     {
       this.router.navigate(['commonview'], { queryParams: { type: 'manager' } });
     }
+    
     else{
-    localStorage.clear();
-    alert("Please Login again")
-    this.router.navigate([''])
+    // localStorage.clear();
+    // alert("Please Login again")
+    this.router.navigate(['company'])
     }
   }
 }

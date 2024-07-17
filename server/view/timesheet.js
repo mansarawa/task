@@ -1,5 +1,5 @@
 import express from 'express'
-import { getalluserTimeSheetController, getmanagerTimeSheetController, getuserTimeSheetController, managerTimeSheetController, userTimeSheetController } from '../controller/timesheetcontroller.js'
+import { adminManagerSheetController, getalluserTimeSheetController, getmanagerTimeSheetController, getuserTimeSheetController, managerTimeSheetController, myUserSheetContoller, userTimeSheetController } from '../controller/timesheetcontroller.js'
 
 const userTimeSheet=express.Router()
 userTimeSheet.post('/usertimesheet',userTimeSheetController)
@@ -13,7 +13,13 @@ managerTimeSheet.post('/managertimesheet',managerTimeSheetController)
 const oneManagerTimeSheet=express.Router()
 oneManagerTimeSheet.post('/myowntimesheet',getmanagerTimeSheetController)
 
+const adminManagerSheet=express.Router()
+adminManagerSheet.post('/mymanagersheet',adminManagerSheetController)
+
 const getAllUserTimeSheet=express.Router()
 getAllUserTimeSheet.get('/allusertimesheet',getalluserTimeSheetController)
 
-export {userTimeSheet,managerTimeSheet,oneUserTimeSheet,oneManagerTimeSheet,getAllUserTimeSheet}
+const getUserSheet=express.Router();
+getUserSheet.post('/myusersheet',myUserSheetContoller)
+
+export {userTimeSheet,managerTimeSheet,oneUserTimeSheet,oneManagerTimeSheet,getAllUserTimeSheet,getUserSheet,adminManagerSheet}

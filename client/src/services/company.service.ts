@@ -161,6 +161,12 @@ export class CompanyService {
     return this.http.get<any>(`${this.apiUrl}/allusertimesheet`)
   }
 
+  getAdminManagerSheet(companyname:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/mymanagersheet`,{companyname})
+  }
+  getMyUserSheet(managername:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/myusersheet`,{managername})
+  }
   //---------------Team------------\\
 
   checkTeam(projectname:string):Observable<any>{

@@ -5,6 +5,7 @@
         <li><button type="button" (click)="homeClick()" [ngStyle]="{'color': home ? '#cb3cff' : 'white'}">Home</button></li>
         <li><button type="button" (click)="projectClick()" [ngStyle]="{'color': project ? '#cb3cff' : 'white'}">Projects</button></li>
         <li><button type="button" (click)="managerSheetClick()" [ngStyle]="{'color': managerSheetMenu ? '#cb3cff' : 'white'}">Time Sheet</button></li>
+        <li><button type="button" (click)="manageruserSheetClick()" [ngStyle]="{'color': manageruserSheetMenu ? '#cb3cff' : 'white'}">Employee's Time Sheet</button></li>
         <li><button type="button" (click)="employeeClick()" [ngStyle]="{'color': employee ? '#cb3cff' : 'white'}">Employee</button></li>
         <li><button type="button" (click)="yourleaveClick()" [ngStyle]="{'color': yourleave ? '#cb3cff' : 'white'}">Your Leave</button></li>
         <li><button type="button" (click)="leaveClick()" [ngStyle]="{'color': leave ? '#cb3cff' : 'white'}"> Leave</button></li>
@@ -46,7 +47,7 @@
           </div> -->
           
           <section class="btndiv">
-        <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
+        <!-- <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button> -->
         <button name="submit" class="btn" (click)="navigateToView(manager,'manager')">Update</button>
     </section>
     
@@ -205,7 +206,40 @@
         </tbody>
       </table>
     </div>
+   
   </div>
+  <div class="leave" *ngIf="manageruserSheetMenu">
+    <div class="items">
+    <h1>
+      User Time Sheets's
+    </h1>
+    
+    <table  border="1">
+      <thead>
+        <tr>
+          
+          <th>Project Name</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>TimeTaken</th>
+          <th>Date</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of usersTimeSheet">
+          
+          <td>{{ info.projectname }}</td>
+          <td>{{info.title}}</td>
+          <td>{{info.desc}}</td>
+        
+          <td>{{info.timetaken}}</td>
+          <td>{{info.createdAt | date: 'yyyy-MM-dd'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
   <div class="yourleave" *ngIf="yourleave">
     <div class="available">
      
@@ -289,7 +323,7 @@
         <label > {{user.managerName}}</label>
       </div>
       <section class="btndiv">
-      <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button>
+      <!-- <button name="button" class="btn" (click)="navigateToCompany()">Go Back</button> -->
       <button name="submit" class="btn" (click)="navigateToView(user,'user')">Update</button>
       </section>
     </div>

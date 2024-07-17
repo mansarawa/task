@@ -2,7 +2,7 @@ import { managerSheet, userSheet } from "../postgres/postgres.js";
 import { Op } from 'sequelize';
 
 const userTimeSheetController = async (req, res) => {
-    const { projectname, username, title, desc, timetaken } = req.body;
+    const { projectname, username, title, desc, timetaken,managername } = req.body;
     try {
         
         const startOfDay = new Date();
@@ -53,7 +53,7 @@ const getuserTimeSheetController = async (req, res) => {
     }
 };
 const managerTimeSheetController = async (req, res) => {
-    const { projectname, managername, title, desc, timetaken } = req.body;
+    const { projectname, managername,companyname, title, desc, timetaken } = req.body;
     try {
         
         const startOfDay = new Date();
@@ -100,6 +100,16 @@ const getmanagerTimeSheetController = async (req, res) => {
     }
 };
 
+const adminManagerSheetController=async(req,res)=>{
+    const {companyname}=req.body;
+    try {
+        const managerSheets=await managerSheet.findAll({where:{companyname:companyname}})
+
+        return res.json({managerSheets})
+    } catch (error) {
+        console.log(error)
+    }
+}
 const getalluserTimeSheetController = async (req, res) => {
    
     try {
@@ -115,4 +125,16 @@ const getalluserTimeSheetController = async (req, res) => {
         return res.status(500).json({ error: "Internal server error." });
     }
 };
-export { userTimeSheetController,managerTimeSheetController,getuserTimeSheetController,getmanagerTimeSheetController,getalluserTimeSheetController };
+
+const myUserSheetContoller=async(req,res)=>{
+    const {managername}=req.body;
+    try {
+        const myuserSheet=await userSheet.findAll({where:{managername:managername}})
+        if(myuserSheet){
+            return res.json({sheet:myuserSheet})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+export { userTimeSheetController,managerTimeSheetController,getuserTimeSheetController,getmanagerTimeSheetController,getalluserTimeSheetController ,myUserSheetContoller,adminManagerSheetController};

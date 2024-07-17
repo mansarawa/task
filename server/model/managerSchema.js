@@ -23,6 +23,10 @@ export const createManagerModel=async(sequelize)=>{
             type:DataTypes.STRING,
             allowNull:true,
             defaultValue:'manager'
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
         
     })

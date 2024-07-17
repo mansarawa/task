@@ -42,6 +42,7 @@ export class RegisterComponent {
       adminname: ['', Validators.required],
       companyname: ['', Validators.required],
       address: ['', Validators.required],
+      gender: ['',Validators.required],
       gst: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -50,6 +51,7 @@ export class RegisterComponent {
       adminname: ['', Validators.required],
       companyname: [this.cname.companyname, Validators.required],
       address: ['', Validators.required],
+      gender: ['',Validators.required],
       gst: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -57,6 +59,7 @@ export class RegisterComponent {
     this.managerRegister = this.fb.group({
       name: ['', Validators.required],
       companyname: [this.cname.companyname],
+      gender: ['',Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });console.log(this.cname)
