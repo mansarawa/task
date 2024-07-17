@@ -22,7 +22,7 @@ const gadmin=express.Router();
 gadmin.post('/getadmin',getAdminController)
 
 const leavemanager=express.Router();
- leavemanager.get('/getmangerleave',getMangerLeaveController)
+ leavemanager.post('/getmangerleave',getMangerLeaveController)
 
 const grantManager=express.Router();
 grantManager.put('/grantmanagerleave',grantManagerLeaveController)

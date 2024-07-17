@@ -94,8 +94,14 @@ const getAdminController = async (req, res) => {
 }
 
 const getMangerLeaveController = async (req, res) => {
-    const getManagerLeave = await mleaveModel.findAll();
+    const {companyname}=req.body;
+    try {
+        const getManagerLeave = await mleaveModel.findAll({where:{companyname:companyname}});
     return res.status(200).json({ managerLeave: getManagerLeave })
+    } catch (error) {
+        console.log(error)
+    }
+    
    
 }
 const grantManagerLeaveController = async (req, res) => {
@@ -104,8 +110,8 @@ const grantManagerLeaveController = async (req, res) => {
         const findLeave = await mleaveModel.findOne({ where: { id: id } })
         if (findLeave) {
             let status = "Grant"
-            await mleaveModel.update({ status }, { where: { id: id } });
-            return res.status(200).json({ message: "Grant successfull", success: true })
+            const updateLeave=await mleaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Grant successfull", success: true ,managerLeave:updateLeave})
         }
         return res.status(401).json({ message: "error", success: false })
     } catch (error) {
@@ -119,8 +125,8 @@ const denyManagerLeaveController = async (req, res) => {
         const findLeave = await mleaveModel.findOne({ where: { id: id } })
         if (findLeave) {
             let status = "Deny"
-            await mleaveModel.update({ status }, { where: { id: id } });
-            return res.status(200).json({ message: "Deny", success: true })
+            const updateLeave=await mleaveModel.update({ status }, { where: { id: id } });
+            return res.status(200).json({ message: "Deny", success: true,managerLeave:updateLeave })
         }
         return res.status(401).json({ message: "error", success: false })
     } catch (error) {

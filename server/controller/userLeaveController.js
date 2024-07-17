@@ -1,12 +1,12 @@
 import { userLeaveModel } from "../postgres/postgres.js";
 
 const userLeaveController=async(req,res)=>{
-    const {username,email,date,status}=req.body;
+    const {username,email,date,status,managername}=req.body;
+    console.log("request body"+req.body)
     try {
         
    
-    const {username,email,date,status}=req.body;
-    const leave=await userLeaveModel.create({username,email,date,});
+    const leave=await userLeaveModel.create({username,email,date,managername});
     if(leave){
         return res.status(200).json({message:"leave application sent",success:true})
     }

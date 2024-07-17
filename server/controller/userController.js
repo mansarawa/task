@@ -11,7 +11,7 @@ import { userMail } from "../mail/nodemailer.js";
             {                
                 
                 const newUser=await userModel.create({name,companyname,gender,email,password,salary,mangerId,managerName})
-                await userMail(email,password)
+                 await userMail(email,password)
                 return res.status(200).json({message:'user created successfully',User:newUser})
             }
             return res.status(400).json({message:'Already created'})

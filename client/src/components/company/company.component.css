@@ -109,13 +109,18 @@ button:hover{
     border-radius: 25px;
 }
 .view{
-    background-color: black;
+    background-color: #0b1739;
+    border: 1px solid #cb3cff;
     padding: 8px 15px 8px 15px;
     color: white;
-    border: none;
+    
     cursor: pointer;
     margin-right: 3%;
     border-radius: 5px;
+}
+.view:hover{
+  background-color: #cb3cff;
+  color: white;
 }
 .delete{
     background-color: red;

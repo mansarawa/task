@@ -71,11 +71,13 @@ export class CommonviewComponent {
     this.manageremail = this.manager.email;
     this.useremail = this.user.email;
     this.username = this.user.name;
+    console.log("cname"+this.manager.companyname)
     this.usermanager=this.user.managerName;
     console.log("mname"+this.user.managerName)
     this.applyleave = this.fb.group({
       username: [this.manager.name],
       email: [this.manager.email],
+      companyname:[this.manager.companyname],
       date: ['', Validators.required],
     })
     this.sendUserTimeSheet = this.fb.group({
@@ -97,6 +99,7 @@ export class CommonviewComponent {
     this.userapplyleave = this.fb.group({
       username: [this.user.name],
       email: [this.user.email],
+      managername:[this.user.managerName],
       date: ['', Validators.required],
     })
   }
@@ -142,7 +145,7 @@ export class CommonviewComponent {
       },
       error => console.error('Error fetching leave', error)
     );
-    this.companyService.getUserLeave().subscribe(
+    this.companyService.getUserLeave(this.managername).subscribe(
       data => {
         this.uleave = data.userLeave
         console.log(this.uleave)
@@ -387,31 +390,30 @@ export class CommonviewComponent {
     this.userproject = false
     this.userleave = false;
 
-    this.userhome = !this.userhome;
+    this.userhome = true;
 
   }
   userTimeClick() {
     this.useryourleave = false;
     this.userproject = false
-    this.userleave = false;
-
+    
     this.userhome = false;
 
-    this.userSheetMenu = !this.userSheetMenu
+    this.userSheetMenu =true
   }
   userprojectClick() {
     this.useryourleave = false;
     this.userhome = false;
 
-    this.userleave = false;
-    this.userproject = !this.userproject;
+    this.userSheetMenu= false;
+    this.userproject =true;
   }
 
   useryourleaveClick() {
     this.userhome = false;
-    this.userleave = false;
+    this.userSheetMenu = false;
     this.userproject = false;
-    this.useryourleave = !this.useryourleave;
+    this.useryourleave = true;
   }
   createTeam(projectname: any) {
 

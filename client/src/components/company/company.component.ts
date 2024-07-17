@@ -78,7 +78,7 @@ export class CompanyComponent  implements OnInit {
       },
       error => console.error('Error fetching admins', error)
     );
-    this.companyService.getManagerLeave().subscribe(
+    this.companyService.getManagerLeave(companyname).subscribe(
       data =>{ this.mleave = data.managerLeave
         console.log(this.mleave)
       },
@@ -135,6 +135,7 @@ export class CompanyComponent  implements OnInit {
   grantLeave(id:any){
     this.companyService.grantManagerLeave(id).subscribe(
       data => {
+        // this.mleave = data.managerLeave
         console.log('leave grant', data.message);
         // this.users = this.users.filter(user => user.id !== id);
       },
@@ -148,6 +149,7 @@ export class CompanyComponent  implements OnInit {
     this.companyService.denyManagerLeave(id).subscribe(
       data => {
         console.log('leave deny', data.message);
+        // this.mleave = data.managerLeave
         // this.users = this.users.filter(user => user.id !== id);
       },
       error => {

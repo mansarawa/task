@@ -3,16 +3,18 @@
     display: flex;
     text-align: center;
     align-items: center;
-    
+    background-color: #081028;
     justify-content: center;
-    min-height: 100%;
+    height: 95vh;
 }
 .container form{
     padding: 5%;
-    
+    background-color: #0b1739;
     margin-top: 5%;
     border-radius: 10px;
-    border: 1px solid black;
+    box-shadow: 10px 10px 10px#cb3cff;
+    color:white;
+    border: 1px solid #cb3cff;
 }
 .items{
     margin-top: 35px;
@@ -27,13 +29,16 @@
     margin-top: 5px;
 }
 .btn{
-    margin-top: 30px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: black;
+    background-color: #0b1739;
+    border: 1px solid #cb3cff;
     color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5%;
+    padding: 10px;
+    border-radius: 5px;
 }
 .btn:hover{
-    cursor: pointer;
+  background-color: #cb3cff;
+  color: white;
 }

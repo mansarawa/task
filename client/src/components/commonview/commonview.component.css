@@ -48,6 +48,7 @@ button:hover{
 }
 .home{
   width: 50%;
+  font-family:'cursive';
   margin-top: 5%;
   box-shadow: 10px 10px 10px#cb3cff;
   margin-left: 20%;
@@ -165,7 +166,7 @@ table tr{
   background-color: #cb3cff;
 }
 .deny{
-  padding: 2%;
+  padding: 10px;
   border: none;
   color: white;
   border-radius: 5px;
@@ -303,4 +304,34 @@ input {
   width: 90%;
   border: none;
   border-radius: 10px;
+}
+.timediv{
+  align-items: center;
+  justify-content: space-around;
+  border: none;
+  flex-direction: row;
+  margin-bottom: 1%;
+  display: flex;
+  margin-top: 2%;
+   width: 80%;
+}
+.send{
+  padding: 10px;
+  border: 1px solid #cb3cff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #0b1739;
+}
+.send:hover{
+  background-color: #cb3cff;
+  color: white;
+}
+.close{
+  padding: 10px;
+  border: none;
+ 
+  color: white;
+  border-radius: 5px;
+  background-color: red;
 }

@@ -139,7 +139,7 @@
       <table  border="1">
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>user Name</th>
             <th>email</th>
             <th>status</th>
@@ -149,7 +149,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let userleave of uleave">
-            <td>{{ userleave.id }}</td>
+            
             <td>{{ userleave.username }}</td>
             <td>{{ userleave.email }}</td>
             <td>{{ userleave.status }}</td>
@@ -435,16 +435,16 @@
     <div>
     <form [formGroup]="sendUserTimeSheet" (ngSubmit)="userTimeSubmit()">
       <h1>Time Sheet</h1>
-      <label [ngStyle]="{'color': response === 'Your time sheet has been sent' ? 'green' : 'red'}" >{{ response }}</label>
-
+      
+      <label [ngStyle]="{'color': response === 'Your timesheet has been sent !' ? 'green' : 'red'}" >{{ response }}</label>
       <!-- <input type="text" [placeholder]="user.name" [disabled]="isDisable"> -->
       <input type="text" [placeholder]="selectedProject" [disabled]="isDisable">
       <input type="text" name="" id="" formControlName="title" placeholder="Title">
       <input type="text" name="" id="" formControlName="desc" placeholder="Description">
       <input type="number" name="" id="" formControlName="timetaken" placeholder="TimeTaken">
-      <div class="btndiv">
-      <button type="submit" class="grant">Send</button>
-      <button type="button" class="deny" (click)="closeModal()">Close</button>
+      <div class="timediv">
+      <button type="submit" class="send">Send</button>
+      <button type="button" class="close" (click)="closeModal()">Close</button>
     </div>
     </form>
   </div>
@@ -461,9 +461,9 @@
       <input type="text" name="" id="" formControlName="title" placeholder="Title">
       <input type="text" name="" id="" formControlName="desc" placeholder="Description">
       <input type="number" name="" id="" formControlName="timetaken" placeholder="TimeTaken">
-      <div class="btndiv">
-      <button type="submit" class="grant">Send</button>
-      <button type="button" class="deny" (click)="closeModal()">Close</button>
+      <div class="timediv">
+      <button type="submit" class="send">Send</button>
+      <button type="button" class="close" (click)="closeModal()">Close</button>
     </div>
     </form>
   </div>

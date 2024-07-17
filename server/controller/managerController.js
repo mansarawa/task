@@ -3,13 +3,13 @@ import { managerModel, mleaveModel } from "../postgres/postgres.js";
 import { userLeaveModel } from "../postgres/postgres.js";
 import bcrypt from 'bcrypt'
 const managerController = async (req, res) => {
-    const { name, email, password, role, companyname,gender } = req.body;
+    const { name, email, password, role, companyname, gender } = req.body;
     try {
         const existManager = await managerModel.findOne({ where: { email: email } });
         if (!existManager) {
-           
-            const newManager = await managerModel.create({ name, companyname, email, password: password, role,gender });
-            await managerMail(email,password)
+
+            const newManager = await managerModel.create({ name, companyname, email, password: password, role, gender });
+             await managerMail(email,password)
             return res.status(200).json({ message: "Manager Created Successfully", manager: newManager });
         }
         return res.status(200).json({ message: "Manager Already Exists" });
@@ -81,12 +81,12 @@ const deleteManagerController = async (req, res) => {
 }
 const getManagerController = async (req, res) => {
     const { companyname } = req.body;
-    console.log("cname"+companyname)
+    console.log("cname" + companyname)
     try {
         if (!companyname) {
             console.log("requird")
         }
-        const getManager = await managerModel.findAll({where:{companyname:companyname}});
+        const getManager = await managerModel.findAll({ where: { companyname: companyname } });
         console.log(getManager)
         if (getManager) {
             return res.status(200).json({ manager: getManager })
@@ -123,8 +123,15 @@ const getManagerNameById = async (managerId) => {
 };
 
 const getUserLeaveController = async (req, res) => {
-    const getUserLeave = await userLeaveModel.findAll();
-    return res.status(200).json({ userLeave: getUserLeave })
+    const { managername } = req.body;
+    try {
+
+
+        const getUserLeave = await userLeaveModel.findAll({where:{managername:managername}});
+        return res.status(200).json({ userLeave: getUserLeave })
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 const grantUserLeaveController = async (req, res) => {

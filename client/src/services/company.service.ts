@@ -31,8 +31,8 @@ export class CompanyService {
    
     return this.http.post<any>(`${this.apiUrl}/getadminproject`,{companyname});
   }
-  getManagerLeave():Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/getmangerleave`)
+  getManagerLeave(companyname:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/getmangerleave`,{companyname})
   }
   getManagerProject(manageremail:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -100,8 +100,8 @@ export class CompanyService {
     return this.http.post(`${this.apiUrl}/getuserleavebyemail`, { email });
   }
 
-  getUserLeave():Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/getuserleave`)
+  getUserLeave(managername:string):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/getuserleave`,{managername})
   }
   grantUserLeave(id:any):Observable<any>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

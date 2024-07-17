@@ -1,6 +1,7 @@
 <div class="container" *ngIf="type === 'admin'">
-  <h1>Admin</h1>
+ 
   <form [formGroup]="adminUpdate" (ngSubmit)="adminSubmit()">
+    <h1>Admin</h1>
       <div>
           <label>Company Name:</label>
           <input type="text" name="" [placeholder]="item.companyname" [disabled]="isDisable" id="">
@@ -28,16 +29,18 @@
       <div>
         <label>Role: </label>
         <input type="text" name="" [placeholder]="item.role" [disabled]="isDisable" id="">
-      </div>
+      </div> <div class="btndiv">
       <button type="button" class="btn" (click)="navigateToCompany()">Go Back</button>
       <button type="submit" class="btn">Update</button>
+     </div>
     
   </form>
 </div>
 
 <div class="container" *ngIf="type === 'manager'">
-  <h1>Manager</h1>
+ 
   <form [formGroup]="managerUpdate" (ngSubmit)="managerSubmit()">
+    <h1>Manager</h1>
   <!-- <div>ID: {{ item.id }}</div> -->
   <div>
     <label>Name: </label>
@@ -55,8 +58,10 @@
     <label>Password: </label>
     <input type="password" formControlName="password" [placeholder]="item.password" id="">
   </div>
+  <div class="btndiv">
   <button type="button" class="btn" (click)="navigateToCompany()">Go Back</button>
   <button type="submit" class="btn">Update</button>
+</div>
 </form>
 </div>
 

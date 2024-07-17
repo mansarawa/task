@@ -21,6 +21,10 @@ export const createMangerleaveSchema=async(Sequelize)=>{
         date:{
             type:DataTypes.DATE,
             allowNull:false
+        },
+        companyname:{
+            type:DataTypes.STRING,
+             allowNull:false
         }
     })
     return leave

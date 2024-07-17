@@ -21,6 +21,10 @@ export const createUserleaveSchema=async(Sequelize)=>{
         date:{
             type:DataTypes.DATE,
             allowNull:false
+        },
+        managername:{
+            type:DataTypes.STRING,
+             allowNull:false
         }
     })
     return userleave

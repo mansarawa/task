@@ -1,7 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 93vh;
     text-align: center;
     color: #cb3cff;
     background-color: #081028;
@@ -40,12 +40,12 @@ div h1{
 }
 .container form{
     width: 40%;
-    margin-top: 3%;
+    margin: 5% 0% 3% 30%;
     padding: 3%;
     border-radius: 15px;
     border: 1px solid #cb3cff;
     display: flex;
-    margin-left: 30%;
+    height: 100%;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;

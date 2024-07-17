@@ -22,7 +22,7 @@ const getManagerLeave=express.Router();
 getManagerLeave.post('/getmanagerleavebyemail',getManagerLeaveController)
 
 const leaveUser=express.Router();
-leaveUser.get('/getuserleave',getUserLeaveController)
+leaveUser.post('/getuserleave',getUserLeaveController)
 
 const grantUser=express.Router();
 grantUser.put('/grantuserleave',grantUserLeaveController)
