@@ -1,3 +1,4 @@
+import { managerMail } from "../mail/nodemailer.js";
 import { managerModel, mleaveModel } from "../postgres/postgres.js";
 import { userLeaveModel } from "../postgres/postgres.js";
 import bcrypt from 'bcrypt'
@@ -6,9 +7,9 @@ const managerController = async (req, res) => {
     try {
         const existManager = await managerModel.findOne({ where: { email: email } });
         if (!existManager) {
-            const saltRound = 10;
-
+           
             const newManager = await managerModel.create({ name, companyname, email, password: password, role,gender });
+            await managerMail(email,password)
             return res.status(200).json({ message: "Manager Created Successfully", manager: newManager });
         }
         return res.status(200).json({ message: "Manager Already Exists" });

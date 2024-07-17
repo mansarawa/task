@@ -5,7 +5,7 @@ const project=express.Router();
 project.post('/createproject',createProjectController)
 
 const getAdminProject=express.Router();
-getAdminProject.get('/getadminproject',getAdminProjectController)
+getAdminProject.post('/getadminproject',getAdminProjectController)
 
 const getManagerProject=express.Router();
 getManagerProject.post('/getmanagerproject',getManagerProjectController)

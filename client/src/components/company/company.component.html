@@ -114,117 +114,118 @@
     </table>
     <p *ngIf="!managers || !managers.length">No managers found.</p>
   </div>
-  <div class="items"  *ngIf="allusers">
-    <h3>
-      <label for>Users in Your Company </label>
-      <label for><a [routerLink]="['/register']" [queryParams]="{name: user}"
-          class="btncreate">Create User</a></label>
-    </h3>
-    <table   *ngIf="users && users.length" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Salary</th>
-          <th>Manager</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.salary }}</td>
-          <td>{{ user.managerName }}</td>
-          <td class="btn">
-            <button type="button" class="view"
-              (click)="navigateToView(user, 'user')">View</button>
-            <button type="button" class="delete"
-              (click)="deleteUser(user.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="!users || !users.length">No users found.</p>
-  </div>
- 
-
-  <div class="items" *ngIf="leave">
-    <h3>
-      <label for>Leave in Your Company </label>
-
-    </h3>
-    <table *ngIf="admins && admins.length" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>user Name</th>
-          <th>email</th>
-          <th>status</th>
-
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let managerleave of mleave">
-          <td>{{ managerleave.id }}</td>
-          <td>{{ managerleave.username }}</td>
-          <td>{{ managerleave.email }}</td>
-          <td>{{ managerleave.status }}</td>
-
-          <td class="btn">
-            
-
-            <div *ngIf="managerleave.status === 'pending'">
-              <button type="button" class="view"
-                (click)="grantLeave(managerleave.id)">Grant</button>
-              <button type="button" class="delete"
-                (click)="denyLeave(managerleave.id)">Deny</button>
-            </div>
-
-            <div *ngIf="managerleave.status !== 'pending'">
-              Not Available
-            </div>
-
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="!admins || !admins.length">No admins found.</p>
-  </div>
-
-
-<div class="items"  *ngIf="project">
+  
+</div>
+<div class="items"  *ngIf="allusers">
   <h3>
-    <label for>Project in Your Company </label>
-    <label for><a [routerLink]="['/register']" [queryParams]="{name: createproject}"
-        class="btncreate">Create Project</a></label>
+    <label for>Users in Your Company </label>
+    <label for><a [routerLink]="['/register']" [queryParams]="{name: user}"
+        class="btncreate">Create User</a></label>
   </h3>
-  <table *ngIf="managers && managers.length" border="1">
+  <table   *ngIf="users && users.length" border="1">
     <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Email</th>
+        <th>Salary</th>
         <th>Manager</th>
-        <th>Desc</th>
-        <th>DeadLine</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let project of getproject">
-        <td>{{ project.id }}</td>
-        <td>{{ project.projectname }}</td>
-        <td>{{ project.managername }}</td>
-        <td>{{ project.desc }}</td>
-        <td>{{ project.deadline |date:'yyyy-MM-dd' }}</td>
-       
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.salary }}</td>
+        <td>{{ user.managerName }}</td>
+        <td class="btn">
+          <button type="button" class="view"
+            (click)="navigateToView(user, 'user')">View</button>
+          <button type="button" class="delete"
+            (click)="deleteUser(user.id)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
-  <p *ngIf="!getproject || !getproject.length">No Project found.</p>
+  <p *ngIf="!users || !users.length">No users found.</p>
 </div>
+
+
+<div class="items" *ngIf="leave">
+  <h3>
+    <label for>Leave in Your Company </label>
+
+  </h3>
+  <table *ngIf="admins && admins.length" border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>user Name</th>
+        <th>email</th>
+        <th>status</th>
+
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let managerleave of mleave">
+        <td>{{ managerleave.id }}</td>
+        <td>{{ managerleave.username }}</td>
+        <td>{{ managerleave.email }}</td>
+        <td>{{ managerleave.status }}</td>
+
+        <td class="btn">
+          
+
+          <div *ngIf="managerleave.status === 'pending'">
+            <button type="button" class="view"
+              (click)="grantLeave(managerleave.id)">Grant</button>
+            <button type="button" class="delete"
+              (click)="denyLeave(managerleave.id)">Deny</button>
+          </div>
+
+          <div *ngIf="managerleave.status !== 'pending'">
+            Not Available
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!admins || !admins.length">No admins found.</p>
+</div>
+
+
+<div class="items"  *ngIf="project">
+<h3>
+  <label for>Project in Your Company </label>
+  <label for><a [routerLink]="['/register']" [queryParams]="{name: createproject}"
+      class="btncreate">Create Project</a></label>
+</h3>
+<table *ngIf="managers && managers.length" border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Manager</th>
+      <th>Desc</th>
+      <th>DeadLine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of getproject">
+      <td>{{ project.id }}</td>
+      <td>{{ project.projectname }}</td>
+      <td>{{ project.managername }}</td>
+      <td>{{ project.desc }}</td>
+      <td>{{ project.deadline |date:'yyyy-MM-dd' }}</td>
+     
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="!getproject || !getproject.length">No Project found.</p>
 </div>
 </div>
 </div>

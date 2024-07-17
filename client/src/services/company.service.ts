@@ -27,9 +27,9 @@ export class CompanyService {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/getadmin`,{companyname});
   }
-  getProject(): Observable<any> {
+  getProject(companyname:string): Observable<any> {
    
-    return this.http.get<any>(`${this.apiUrl}/getadminproject`);
+    return this.http.post<any>(`${this.apiUrl}/getadminproject`,{companyname});
   }
   getManagerLeave():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/getmangerleave`)

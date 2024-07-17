@@ -19,6 +19,9 @@ export const createProjectSchema=async(Sequelize)=>{
         },
         deadline:{
             type:DataTypes.DATE
+        },companyname:{
+            type:DataTypes.STRING,
+            allowNull:false
         }
     })
 

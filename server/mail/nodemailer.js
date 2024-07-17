@@ -1,33 +1,148 @@
 import http from "http"
 import nodemailer from "nodemailer";
+import { adminModel, managerModel, userModel } from "../postgres/postgres.js";
 
 
-const server = http.createServer((request, response) => {
-    const auth = nodemailer.createTransport({
+const restMail = async (req, res) => {
+    const { email } = req.body;
+    const receiver = await userModel.findOne({ where: { email: email } }) || await  managerModel.findOne({ where: { email: email } }) ||await adminModel.findOne({ where: { email: email } });
+
+    if (!receiver) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const receiverPass = receiver.password;
+
+    const transporter = nodemailer.createTransport({
         service: "gmail",
-        secure : true,
-        port : 465,
+        secure: true,
+        port: 465,
         auth: {
             user: "rawamansa@gmail.com",
             pass: "bfcnesqpihgyykxo"
-
         }
     });
 
-    const receiver = {
-        from : "rawa@gmail.com",
-        to : "youremail@gmail.com",
-        subject : "Node Js Mail Testing!",
-        text : "Hello this is a text mail!"
+    const mailOptions = {
+        from: "rawa@gmail.com",
+        to: email,
+        subject: "Password Reset Mail",
+        text: `Hello, this is your password: ${receiverPass}`
     };
 
-    auth.sendMail(receiver, (error, emailResponse) => {
-        if(error)
-        throw error;
-        console.log("success!");
-        response.end();
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(500).json({ error: "Failed to send email" });
+        }
+        return res.json({ success: "Email sent successfully!" });
     });
-    
-});
+};
 
-server.listen(8080);
+//------------create Admin----------------\\
+const adminMail = async (email, password) => {
+    // const { email,password } = req.body;
+    const receiver =email
+
+    if (!receiver) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const receiverPass = password;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        secure: true,
+        port: 465,
+        auth: {
+            user: "rawamansa@gmail.com",
+            pass: "bfcnesqpihgyykxo"
+        }
+    });
+
+    const mailOptions = {
+        from: "rawa@gmail.com",
+        to: email,
+        subject: "Account Creation  Mail",
+        text: `Hello,  this is your email ${receiver} and this is your : ${receiverPass} password`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(500).json({ error: "Failed to send email" });
+        }
+        return res.json({ success: "Email sent successfully!" });
+    });
+};
+
+//-------------create manager-------------\\
+const managerMail = async (email, password) => {
+    // const { email,password } = req.body;
+    const receiver =email
+
+    if (!receiver) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const receiverPass = password;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        secure: true,
+        port: 465,
+        auth: {
+            user: "rawamansa@gmail.com",
+            pass: "bfcnesqpihgyykxo"
+        }
+    });
+
+    const mailOptions = {
+        from: "rawa@gmail.com",
+        to: email,
+        subject: "Account Creation  Mail",
+        text: `Hello,  this is your email ${receiver} and this is your : ${receiverPass} password`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(500).json({ error: "Failed to send email" });
+        }
+        return res.json({ success: "Email sent successfully!" });
+    });
+};
+
+//-------------create user--------------\\
+const userMail = async (email, password) => {
+    // const { email,password } = req.body;
+    const receiver =email
+
+    if (!receiver) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const receiverPass = password;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        secure: true,
+        port: 465,
+        auth: {
+            user: "rawamansa@gmail.com",
+            pass: "bfcnesqpihgyykxo"
+        }
+    });
+
+    const mailOptions = {
+        from: "rawa@gmail.com",
+        to: email,
+        subject: "Account Creation  Mail",
+        text: `Hello,  this is your email ${receiver} and this is your : ${receiverPass} password`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(500).json({ error: "Failed to send email" });
+        }
+        return res.json({ success: "Email sent successfully!" });
+    });
+};
+export {restMail,adminMail,managerMail,userMail}

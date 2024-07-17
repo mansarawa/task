@@ -1,11 +1,11 @@
 import { projectModel } from "../postgres/postgres.js";
 
 const createProjectController = async (req, res) => {
-    const { projectname, managername,manageremail, desc, deadline } = req.body;
+    const { projectname, managername,manageremail, desc, deadline,companyname } = req.body;
     try {
         const findProject = await projectModel.findOne({ where: { projectname: projectname } })
         if (!findProject) {
-            const createProject = await projectModel.create({ projectname, managername,manageremail, desc, deadline })
+            const createProject = await projectModel.create({ projectname, managername,manageremail, desc, deadline,companyname })
             return res.status(200).json({ project: createProject })
         }
         else {
@@ -36,7 +36,12 @@ const getManagerProjectController = async (req, res) => {
 }
 
 const getAdminProjectController=async(req,res)=>{
-    const getProject=await projectModel.findAll();
+    const {companyname}=req.body;
+    try {
+    const getProject=await projectModel.findAll({where:{companyname:companyname}});
     return res.status(200).json({projects:getProject})
+} catch (error) {
+    console.log(error)
+}
 }
 export { createProjectController,getManagerProjectController,getAdminProjectController }

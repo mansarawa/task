@@ -66,7 +66,7 @@ export class RegisterComponent {
 
     this.userRegister = this.fb.group({
       name: ['', Validators.required],
-      salary: ['', Validators.required],
+      salary: [10000, Validators.required],
       companyname: [this.cname.companyname],
       gender: ['',Validators.required],
       // managerId: ['', Validators.required],
@@ -77,6 +77,7 @@ export class RegisterComponent {
     this.createProject = this.fb.group({
       projectname: ['', Validators.required],
       desc: ['', Validators.required],
+      companyname:[this.cname.companyname],
       deadline: ['',Validators.required],
       manageremail:['',Validators.required],
       managername: ['', Validators.required]

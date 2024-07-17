@@ -64,7 +64,7 @@ export class CompanyComponent  implements OnInit {
       },
       error => console.error('Error fetching admins', error)
     );
-    this.companyService.getProject().subscribe(
+    this.companyService.getProject(companyname).subscribe(
       data =>{ this.getproject = data.projects
       
         console.log("projects"+this.getproject)

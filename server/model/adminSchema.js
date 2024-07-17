@@ -16,7 +16,7 @@ const Admin = await sequelize.define(
       },
       gst: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+         allowNull: false,
       },
       adminname: {
         type: DataTypes.STRING,

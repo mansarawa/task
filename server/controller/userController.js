@@ -1,6 +1,7 @@
 import { where } from "sequelize";
 import { managerModel, userLeaveModel, userModel } from "../postgres/postgres.js";
 import { Op } from 'sequelize';
+import { userMail } from "../mail/nodemailer.js";
 
  const userController=async(req,res)=>{
     const {name,email,password,salary,mangerId,companyname,gender,managerName}=req.body;
@@ -10,6 +11,7 @@ import { Op } from 'sequelize';
             {                
                 
                 const newUser=await userModel.create({name,companyname,gender,email,password,salary,mangerId,managerName})
+                await userMail(email,password)
                 return res.status(200).json({message:'user created successfully',User:newUser})
             }
             return res.status(400).json({message:'Already created'})

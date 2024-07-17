@@ -1,3 +1,4 @@
+import { adminMail } from "../mail/nodemailer.js";
 import { adminModel, mleaveModel } from "../postgres/postgres.js";
 import jwt from 'jsonwebtoken'
 const adminController = async (req, res) => {
@@ -6,6 +7,7 @@ const adminController = async (req, res) => {
         const existAdmin = await adminModel.findOne({ where: { email: email } })
         if (!existAdmin) {
             const newAdmin = await adminModel.create(req.body);
+            await adminMail(email,password)
             return res.status(201).json({ messsage: 'user added success', data: newAdmin })
         }
         return res.status(201).json({ messsage: 'already added ' })
