@@ -5,10 +5,11 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViewComponent } from '../view/view.component';
 import { DataTablesModule } from 'angular-datatables';
+
 import { Subject } from 'rxjs';
 import * as $ from 'jquery';
 import 'datatables.net';
-import DataTables, { Config } from 'datatables.net';
+import { Config } from 'datatables.net';
 @Component({
   selector: 'app-company',
   standalone: true,
@@ -33,7 +34,7 @@ export class CompanyComponent  implements OnInit {
    allusers=false;
   leave=false;
   project=false;
-  
+  dtoptions: Config = {};
   manager:string="manager"
   createproject:string="createproject"
   
@@ -45,7 +46,11 @@ export class CompanyComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.dtoptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      processing: true
+    };
     const storedAdmin = localStorage.getItem('admin');
     const adminData = storedAdmin ? JSON.parse(storedAdmin) : [];
     const companyname = adminData.companyname;
@@ -133,10 +138,20 @@ export class CompanyComponent  implements OnInit {
   }
 
   grantLeave(id:any){
+    const storedAdmin = localStorage.getItem('admin');
+    const adminData = storedAdmin ? JSON.parse(storedAdmin) : [];
+    const companyname = adminData.companyname;
+    console.log(companyname)
     this.companyService.grantManagerLeave(id).subscribe(
       data => {
         // this.mleave = data.managerLeave
         console.log('leave grant', data.message);
+        this.companyService.getManagerLeave(companyname).subscribe(
+          data =>{ this.mleave = data.managerLeave
+            console.log(this.mleave)
+          },
+          error => console.error('Error fetching admins', error)
+        );
         // this.users = this.users.filter(user => user.id !== id);
       },
       error => {
@@ -146,9 +161,19 @@ export class CompanyComponent  implements OnInit {
   }
 
   denyLeave(id:any){
+    const storedAdmin = localStorage.getItem('admin');
+    const adminData = storedAdmin ? JSON.parse(storedAdmin) : [];
+    const companyname = adminData.companyname;
+    console.log(companyname)
     this.companyService.denyManagerLeave(id).subscribe(
       data => {
         console.log('leave deny', data.message);
+        this.companyService.getManagerLeave(companyname).subscribe(
+          data =>{ this.mleave = data.managerLeave
+            console.log(this.mleave)
+          },
+          error => console.error('Error fetching admins', error)
+        );
         // this.mleave = data.managerLeave
         // this.users = this.users.filter(user => user.id !== id);
       },

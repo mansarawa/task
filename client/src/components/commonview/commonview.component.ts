@@ -423,6 +423,13 @@ export class CommonviewComponent {
     this.companyService.grantUserLeave(id).subscribe(
       data => {
         console.log('leave grant', data.message);
+        this.companyService.getUserLeave(this.managername).subscribe(
+          data => {
+            this.uleave = data.userLeave
+            console.log(this.uleave)
+          },
+          error => console.error('Error fetching admins', error)
+        );
         // this.users = this.users.filter(user => user.id !== id);
       },
       error => {
@@ -435,6 +442,13 @@ export class CommonviewComponent {
     this.companyService.denyUserLeave(id).subscribe(
       data => {
         console.log('leave deny', data.message);
+        this.companyService.getUserLeave(this.managername).subscribe(
+          data => {
+            this.uleave = data.userLeave
+            console.log(this.uleave)
+          },
+          error => console.error('Error fetching admins', error)
+        );
         // this.users = this.users.filter(user => user.id !== id);
       },
       error => {

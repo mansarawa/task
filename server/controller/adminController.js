@@ -8,7 +8,7 @@ const adminController = async (req, res) => {
         if (!existAdmin) {
             const newAdmin = await adminModel.create(req.body);
             await adminMail(email,password)
-            return res.status(201).json({ messsage: 'user added success', data: newAdmin })
+            return res.status(200).json({ messsage: 'user added success', data: newAdmin })
         }
         return res.status(201).json({ messsage: 'already added ' })
         console.log("start")
@@ -25,11 +25,11 @@ const ladminController = async (req, res) => {
         if (findAdmin) {
             if (findAdmin.password == password) {
 
-                return res.status(200).json({ message: "Admin login", sucess: true, admin: findAdmin })
+                return res.status(200).json({ message: "Admin login", sucess: true, admin: findAdmin,success:true })
             }
-            return res.status(401).json({ message: "incorrect password" })
+            return res.status(401).json({ message: "incorrect password",success:false })
         }
-        return res.status(401).json({ message: "not found" })
+        return res.status(401).json({ message: "not found",success:false })
     } catch (error) {
         console.log(error)
     }

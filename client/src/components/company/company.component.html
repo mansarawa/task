@@ -112,7 +112,7 @@
         </tr>
       </tbody>
     </table>
-    <p *ngIf="!managers || !managers.length">No managers found.</p>
+    <p *ngIf="!managersheet || !managersheet.length">No Time Sheet found.</p>
   </div>
   
 </div>
@@ -158,7 +158,7 @@
     <label for>Leave in Your Company </label>
 
   </h3>
-  <table *ngIf="admins && admins.length" border="1">
+  <table datatable [dtOptions]="dtoptions" *ngIf="admins && admins.length" border="1">
     <thead>
       <tr>
         <th>ID</th>
@@ -194,7 +194,7 @@
       </tr>
     </tbody>
   </table>
-  <p *ngIf="!admins || !admins.length">No admins found.</p>
+  <p *ngIf="!mleave || !mleave.length">No leave found.</p>
 </div>
 
 
