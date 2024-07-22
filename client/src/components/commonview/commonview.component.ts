@@ -20,6 +20,8 @@ export class CommonviewComponent {
   item: any = {};
   uleave: any[] = [];
   name: string = '';
+  managerleavemodal=false;
+  userleavemodal=false;
   userSheet = false;
   isDisable = true;
   home = true;
@@ -112,9 +114,21 @@ export class CommonviewComponent {
     if (this.userSheet) {
       this.userSheet = !this.userSheet;
     }
+    else if(this.managerleavemodal){
+      this.managerleavemodal=!this.managerleavemodal
+    }
+    else if(this.userleavemodal){
+      this.userleavemodal=!this.userleavemodal
+    }
     else {
       this.managerSheet = !this.managerSheet;
     }
+  }
+  managerModalClick(){
+    this.managerleavemodal=!this.managerleavemodal
+  }
+  userModalClick(){
+    this.userleavemodal=!this.userleavemodal
   }
   async ngOnInit() {
     this.manager = JSON.parse(localStorage.getItem('manager') || '{}');

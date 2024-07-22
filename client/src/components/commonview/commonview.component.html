@@ -246,7 +246,7 @@
         
           <h1>
             <label for>Your Leave </label>
-      
+            <button class="send" (click)="managerModalClick()">Apply for leave</button>
           </h1>
           <table border="1">
             <thead>
@@ -271,18 +271,7 @@
           </table>
        
         </div>
-        <div class="applyleave">
-          <div class="apply ">
-           
-            <form [formGroup]="applyleave" (ngSubmit)="onSubmit()">
-              <h1>Apply For Leave</h1>
-              <input type="text" [placeholder]="manager.name" [disabled]="isDisable">
-              <input type="text" [placeholder]="manager.email" [disabled]="isDisable">
-              <input type="date" formControlName="date" [min]="today">
-              <button type="submit" class="submitbtn">Submit</button>
-            </form>
-          </div>
-        </div>
+        
     </div>
     
   </div>
@@ -333,7 +322,7 @@
             
               <h1>
                 <label for>Your Leave </label>
-          
+                <button type="button" (click)="userModalClick()" class="send">Apply For Leave</button>
               </h1>
               <table border="1">
                 <thead>
@@ -358,18 +347,7 @@
               </table>
            
             </div>
-            <div class="applyleave">
-              <div class="apply ">
-               
-                <form [formGroup]="userapplyleave" (ngSubmit)="onUserSubmit()">
-                  <h1>Apply For Leave</h1>
-                  <input type="text" [placeholder]="user.name" [disabled]="isDisable">
-                  <input type="text" [placeholder]="user.email" [disabled]="isDisable">
-                  <input type="date" formControlName="date" [min]="today">
-                  <button type="submit" class="submitbtn">Submit</button>
-                </form>
-              </div>
-            </div>
+            
         </div>
         <div class="leave" *ngIf="userproject">
           <div class="items">
@@ -468,3 +446,34 @@
     </form>
   </div>
    </div>
+
+   <div class="usersheet" *ngIf="managerleavemodal">
+    <div class="apply ">
+     
+      <form [formGroup]="applyleave" (ngSubmit)="onSubmit()">
+        <h1>Apply For Leave</h1>
+        <input type="text" [placeholder]="manager.name" [disabled]="isDisable">
+        <input type="text" [placeholder]="manager.email" [disabled]="isDisable">
+        <input type="date" formControlName="date" [min]="today">
+        <div class="btndiv">
+          <button type="submit" class="send">Submit</button>
+          <button type="submit" class="deny" (click)="closeModal()">close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="usersheet" *ngIf="userleavemodal">
+    <div class="apply ">
+     
+      <form [formGroup]="userapplyleave" (ngSubmit)="onSubmit()">
+        <h1>Apply For Leave</h1>
+        <input type="text" [placeholder]="manager.name" [disabled]="isDisable">
+        <input type="text" [placeholder]="manager.email" [disabled]="isDisable">
+        <input type="date" formControlName="date" [min]="today">
+        <div class="btndiv">
+          <button type="submit" class="send">Submit</button>
+          <button type="submit" class="deny" (click)="closeModal()">close</button>
+      </div>
+      </form>
+    </div>
+  </div>

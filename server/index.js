@@ -11,7 +11,7 @@ import {manager,lmanager,umanager,dmanager,gmanager,grantUser,denyUser,leaveUser
 import { mleave } from './view/leave.js';
 import { uleave } from './view/userleave.js';
 import { getAdminProject, getManagerProject, project } from './view/project.js';
-import { findProjectTeam, team, userProject } from './view/team.js';
+import { findProjectTeam, team, updateProjectTeam, userProject } from './view/team.js';
 import { adminManagerSheet, getAllUserTimeSheet, getUserSheet, managerTimeSheet, oneManagerTimeSheet, oneUserTimeSheet, userTimeSheet } from './view/timesheet.js';
 import { restMail } from './mail/nodemailer.js';
 
@@ -52,6 +52,7 @@ app.use('',getAllUserTimeSheet)
 app.use('/',managerTimeSheet)
 app.use('/',team)
 app.use('',findProjectTeam)
+app.use('/',updateProjectTeam)
 app.use('/',gmanager)
 app.use('/',project)
 app.use('/',getManagerProject)

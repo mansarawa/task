@@ -17,7 +17,19 @@ const createTeamController = async (req, res) => {
   }
 };
 
-
+const updateProjectTeamController=async(req,res)=>{
+    const {projectname,users}=req.body;
+    try {
+      const findTeam=await teamModel.findOne({where:{projectname:projectname}})
+      if(findTeam)
+      {
+        const updateTeam=await teamModel.update({projectname,users})
+        return res.status(200).json({updateTeam})
+      }
+    } catch (error) {
+      
+    }
+}
 
 const getUserProjectsController = async (req, res) => {
   const { username } = req.body;
@@ -61,4 +73,4 @@ const findProjectTeamController=async(req,res)=>{
     
   }
 }
-export { createTeamController,getUserProjectsController,findProjectTeamController };
+export { createTeamController,getUserProjectsController,findProjectTeamController,updateProjectTeamController };
