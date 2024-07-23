@@ -8,9 +8,15 @@ import { createProjectSchema } from '../model/projectSchema.js';
 import { createTeamModel } from '../model/teamSchema.js';
 import { createUserTimeSchema } from '../model/uTimeSheetSchema.js';
 import { createManagerTimeSchema } from '../model/mTimeSheetSchema.js';
-const sequelize = new Sequelize('postgres', 'mansa', '1884', {
-    host: 'localhost',
-    dialect: 'postgres' 
+const sequelize = new Sequelize("https://task-84fg.onrender.com",{
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+      ssl: {
+          require: true,
+          rejectUnauthorized: false // For self-signed certificates
+      }
+  } 
   });
   let adminModel=null
   let managerModel=null
